@@ -12,8 +12,10 @@ import javax.swing.JLabel;
 import Clientes.Clientes;
 import Imagenes.Img;
 import Inventario.Inventario;
+import Login.Login;
 import Productos.AltaProductos;
 import Reportes.Reporte;
+import Sqls.IniSesion;
 import Usuarios.Usuarios;
 import Ventas.VentaProductos;
 
@@ -25,7 +27,7 @@ import java.awt.event.ActionListener;
 public class PanelPrincipal extends JFrame {
 
 	private JPanel contentPane;
-
+	public static Login k=new Login();
 	/**
 	 * Launch the application.
 	 */
@@ -139,5 +141,14 @@ public class PanelPrincipal extends JFrame {
 		});
 		btnClientes.setBounds(407, 11, 89, 55);
 		contentPane.add(btnClientes);
+		
+		JLabel lblUsuario = new JLabel();
+		lblUsuario.setText(IniSesion.loger);
+		lblUsuario.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblUsuario.setBounds(235, 329, 220, 14);
+		contentPane.add(lblUsuario);
+	}
+	public void cerrar(){
+		k.dispose();
 	}
 }
