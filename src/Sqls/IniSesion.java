@@ -11,9 +11,11 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+
 import Conexion.Conectar;
 import Imagenes.Img;
 import Principal.PanelPrincipal;
+import Principal.PanelPrincipal1;
 import Usuarios.EncriptacionPrincipal;
 
 public class IniSesion {
@@ -69,8 +71,8 @@ public class IniSesion {
 					}
 					if(tipo==2){
 						JOptionPane.showMessageDialog(txtUsuario,bienvenida+nombre,"Bienvenido",JOptionPane.DEFAULT_OPTION,ob.login());
-						PanelPrincipal prin=new PanelPrincipal();
-						PanelPrincipal menpri=new PanelPrincipal();
+						PanelPrincipal1 prin=new PanelPrincipal1();
+						PanelPrincipal1 menpri=new PanelPrincipal1();
 						menpri.setVisible(true);
 						prin.cerrar();
 					}
