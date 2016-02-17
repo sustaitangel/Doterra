@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLayeredPane;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
 
 import java.awt.Color;
 
@@ -25,6 +26,11 @@ import Imagenes.Img;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+import javax.swing.JTable;
+
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
 public class VentaProductos extends JFrame {
 
 	private JPanel contentPane;
@@ -33,6 +39,10 @@ public class VentaProductos extends JFrame {
 	private JTextField txtTotalpv;
 	private JTextField txtTotal;
 	private JTextField txtCliente;
+	private JTable table;
+	private static   String matriz[][]={};
+	private static   String vector[]={"Código","Nombre","Precio Cliente","PV","Cantidad"};
+	public static   DefaultTableModel modelo1= new DefaultTableModel(matriz,vector);
 
 	/**
 	 * Launch the application.
@@ -74,6 +84,19 @@ public class VentaProductos extends JFrame {
 		layeredPane.add(lblClave);
 		
 		txtClave = new JTextField();
+		txtClave.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char ec=e.getKeyChar();
+				String codigo=null;
+				if(ec==KeyEvent.VK_ENTER){
+					BuscarArticulo buscar=new BuscarArticulo();
+					codigo=txtClave.getText();				
+					buscar.buscar(table, codigo, modelo1,txtClave,txtClave);
+					//suma();
+				}
+			}
+		});
 		txtClave.setBounds(78, 29, 130, 20);
 		layeredPane.add(txtClave);
 		txtClave.setColumns(10);
@@ -147,6 +170,23 @@ public class VentaProductos extends JFrame {
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 27, 541, 188);
 		layeredPane_1.add(scrollPane);
+		
+		table = new JTable(){
+			public boolean isCellEditable(int rowIndex, int columnIndex) { 
+				if (columnIndex==5) return true; 
+				if (columnIndex==3) return false;
+				if (columnIndex==2) return true;
+				else 
+				return false; 
+				} 
+		};
+		
+		scrollPane.setColumnHeaderView(table);
+		scrollPane.setViewportView(table);
+		table.setModel(modelo1);
+		table.getColumnModel().getColumn(3).setPreferredWidth(5);
+		table.getColumnModel().getColumn(3).setPreferredWidth(5);
+		table.getColumnModel().getColumn(4).setPreferredWidth(5);
 		
 		JLabel lblCliente = new JLabel("Cliente :");
 		lblCliente.setForeground(new Color(34, 139, 34));

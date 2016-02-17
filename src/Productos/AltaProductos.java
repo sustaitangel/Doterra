@@ -21,9 +21,16 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 
 import Imagenes.Img;
+
 import javax.swing.JTabbedPane;
+
 import java.awt.GridLayout;
+
 import javax.swing.JScrollPane;
+import javax.swing.DefaultComboBoxModel;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class AltaProductos extends JFrame {
 
@@ -38,7 +45,9 @@ public class AltaProductos extends JFrame {
 	private JTextField txtBuscarProductos;
 	private JTextField txtCantidad;
 	private JTextField txtPrecioGota;
-
+	int tipo=3;
+	String tipo1;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -135,13 +144,20 @@ public class AltaProductos extends JFrame {
 		panel_1.add(lblClave);
 		
 		txtClave = new JTextField();
-		txtClave.setBounds(167, 14, 144, 22);
+		txtClave.setBounds(171, 14, 176, 22);
 		panel_1.add(txtClave);
 		txtClave.setColumns(10);
 		JButton btnCancelar = new JButton(n7.btnCancelar());
 		btnCancelar.setBounds(133, 301, 89, 34);
 		panel_1.add(btnCancelar);
 		JButton btnGuardar = new JButton(n8.btnGuardar());
+		btnGuardar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AgregarProducto n= new AgregarProducto();
+				n.agregar(txtClave, txtUnidad, txtNombreProducto, textField, txtPrecioCliente, txtPrecioDistribuidor, txtPrecioGota, txtPv, tipo, txtCantidad);
+				limpiar();	
+			}
+		});
 		btnGuardar.setBounds(232, 301, 89, 34);
 		panel_1.add(btnGuardar);
 		
@@ -152,7 +168,22 @@ public class AltaProductos extends JFrame {
 		panel_1.add(lblCategoria);
 		
 		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(167, 47, 144, 22);
+		comboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tipo1=(String)comboBox.getSelectedItem();
+				if(tipo1.equals("Kits de inscripcion")){
+					tipo=3;
+				}
+				if(tipo1.equals("Mezclas de aceites")){
+					tipo=2;
+				}
+				if(tipo1.equals("Puro de grado terapeutico")){
+					tipo=1;
+				}
+			}
+		});
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Kits de inscripcion", "Puro de grado terapeutico", "Mezclas de aceites"}));
+		comboBox.setBounds(167, 47, 176, 22);
 		panel_1.add(comboBox);
 		
 		JLabel lblNombreDelProducto = new JLabel("Nombre del producto :");
@@ -162,7 +193,7 @@ public class AltaProductos extends JFrame {
 		panel_1.add(lblNombreDelProducto);
 		
 		txtNombreProducto = new JTextField();
-		txtNombreProducto.setBounds(167, 80, 144, 22);
+		txtNombreProducto.setBounds(167, 80, 176, 22);
 		panel_1.add(txtNombreProducto);
 		txtNombreProducto.setColumns(10);
 		
@@ -173,7 +204,7 @@ public class AltaProductos extends JFrame {
 		panel_1.add(lblNombreEspaol);
 		
 		textField = new JTextField();
-		textField.setBounds(167, 113, 144, 22);
+		textField.setBounds(167, 113, 176, 22);
 		panel_1.add(textField);
 		textField.setColumns(10);
 		
@@ -184,7 +215,7 @@ public class AltaProductos extends JFrame {
 		panel_1.add(lblUnidad);
 		
 		txtUnidad = new JTextField();
-		txtUnidad.setBounds(167, 146, 144, 22);
+		txtUnidad.setBounds(167, 146, 176, 22);
 		panel_1.add(txtUnidad);
 		txtUnidad.setColumns(10);
 		
@@ -195,7 +226,7 @@ public class AltaProductos extends JFrame {
 		panel_1.add(lblPrecioCliente);
 		
 		txtPrecioCliente = new JTextField();
-		txtPrecioCliente.setBounds(167, 179, 144, 22);
+		txtPrecioCliente.setBounds(167, 179, 176, 22);
 		panel_1.add(txtPrecioCliente);
 		txtPrecioCliente.setColumns(10);
 		
@@ -206,7 +237,7 @@ public class AltaProductos extends JFrame {
 		panel_1.add(lblPrecioDistribuidor);
 		
 		txtPrecioDistribuidor = new JTextField();
-		txtPrecioDistribuidor.setBounds(167, 212, 144, 22);
+		txtPrecioDistribuidor.setBounds(167, 212, 176, 22);
 		panel_1.add(txtPrecioDistribuidor);
 		txtPrecioDistribuidor.setColumns(10);
 		
@@ -239,8 +270,22 @@ public class AltaProductos extends JFrame {
 		panel_1.add(lblPrecioPorGota);
 		
 		txtPrecioGota = new JTextField();
-		txtPrecioGota.setBounds(167, 242, 144, 22);
+		txtPrecioGota.setBounds(167, 242, 176, 22);
 		panel_1.add(txtPrecioGota);
 		txtPrecioGota.setColumns(10);
+	}
+	
+	public void limpiar(){
+		txtClave.setText("");
+		txtNombreProducto.setText("");
+		textField.setText("");
+		txtUnidad.setText("");
+		txtPrecioCliente.setText("");
+		txtPrecioDistribuidor.setText("");
+		txtPv.setText("");
+		txtBuscarProductos.setText("");
+		txtCantidad.setText("");
+		txtPrecioGota.setText("");
+		
 	}
 }
