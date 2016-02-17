@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 
 import java.awt.Font;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
@@ -30,12 +31,13 @@ import javax.swing.JTable;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.text.DecimalFormat;
 
 public class VentaProductos extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtClave;
-	private JTextField textField;
+	private JTextField txtImporte;
 	private JTextField txtTotalpv;
 	private JTextField txtTotal;
 	private JTextField txtCliente;
@@ -93,7 +95,7 @@ public class VentaProductos extends JFrame {
 					BuscarArticulo buscar=new BuscarArticulo();
 					codigo=txtClave.getText();				
 					buscar.buscar(table, codigo, modelo1,txtClave,txtClave);
-					//suma();
+					suma();
 				}
 			}
 		});
@@ -125,10 +127,10 @@ public class VentaProductos extends JFrame {
 		lblImporte.setBounds(347, 30, 67, 14);
 		layeredPane.add(lblImporte);
 		
-		textField = new JTextField();
-		textField.setBounds(424, 29, 86, 20);
-		layeredPane.add(textField);
-		textField.setColumns(10);
+		txtImporte = new JTextField();
+		txtImporte.setBounds(424, 29, 86, 20);
+		layeredPane.add(txtImporte);
+		txtImporte.setColumns(10);
 		
 		JLabel lblTotalPv = new JLabel("Total Pv :");
 		lblTotalPv.setForeground(new Color(34, 139, 34));
@@ -210,5 +212,46 @@ public class VentaProductos extends JFrame {
 		});
 		btnVerClientes.setBounds(218, 30, 86, 19);
 		layeredPane.add(btnVerClientes);
+	}
+	public void suma(){
+		int j=table.getRowCount()-1;
+		if(j>=0){
+			float n2=0;
+			float n2x=0;
+			for(int i=0;i<=j;i++){
+				float n= Float.parseFloat(table.getValueAt(i, 2).toString());
+				float cantidad=Integer.parseInt(table.getValueAt(i, 4).toString());
+				float n1=n*cantidad;
+				float nx=n= Float.parseFloat(table.getValueAt(i, 2).toString());
+				n2=n2+n1;
+				DecimalFormat formateador = new DecimalFormat(".##");
+				DecimalFormat formateador1 = new DecimalFormat(".##");
+				formateador.format(n2);
+				
+				n2x=n2x+nx;
+				txtTotal.setText(String.valueOf(formateador1.format(n2x)));
+			}
+			float n3=0;
+			float n2x3=0;
+			for(int i=0;i<=j;i++){
+				float n12= Float.parseFloat(table.getValueAt(i, 3).toString());
+				float cantidad=Integer.parseInt(table.getValueAt(i, 4).toString());
+				float n1=n12*cantidad;
+				float nx=n12= Float.parseFloat(table.getValueAt(i, 3).toString());
+				n3=n3+n1;
+				DecimalFormat formateador = new DecimalFormat(".##");
+				DecimalFormat formateador1 = new DecimalFormat(".##");
+				formateador.format(n2);
+				
+				n2x3=n2x3+nx;
+				txtTotalpv.setText(String.valueOf(formateador1.format(n2x3)));
+			}
+		}else{
+			txtTotal.setText("0.0");
+			//txtSubtotal.setText("0.0");
+			txtImporte.setText("");
+			
+			//txtCambio.setText("");
+		}
 	}
 }

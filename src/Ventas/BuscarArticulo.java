@@ -19,7 +19,7 @@ public class BuscarArticulo {
 	public void buscar(JTable tabla,String txtCodigo,DefaultTableModel modelo,JTextField txtNombreProducto,JTextField txtNombre){
 		Conectar cx=new Conectar();
 		Connection cn= cx.conexion(null);
-		String sql="SELECT clave, nombre, precio_cliente, pv, cantidad FROM productos where clave='"+txtCodigo+"'";
+		String sql="SELECT clave, nombre, precio_cliente, pv  FROM productos where clave='"+txtCodigo+"'";
 		
 		int stok=existencia(txtCodigo);
 		
@@ -80,9 +80,9 @@ public class BuscarArticulo {
 			int elbueno=exis;
 			if(exis>=1){
 				
-			if(tabla.getValueAt(i,5)==null){
+			if(tabla.getValueAt(i,4)==null){
 				cantidad=1;
-				tabla.setValueAt(cantidad, i, 5);
+				tabla.setValueAt(cantidad, i, 4);
 				precio=Float.parseFloat(tabla.getValueAt(i, 2).toString());
 				iva=iva*100;
 				precioiva=iva+precio;
@@ -91,7 +91,7 @@ public class BuscarArticulo {
 				//comando.execute(sql);
 				preciopublico=(precioiva*cantidad);
 				DecimalFormat formateador = new DecimalFormat(".##");
-				tabla.setValueAt(formateador.format(preciopublico), i, 4);
+				//tabla.setValueAt(formateador.format(preciopublico), i, 4);
 	 		}
 			if(b>=1){
 								
@@ -108,7 +108,7 @@ public class BuscarArticulo {
 				comando.execute(sql);
 				preciopublico=(precioiva*cantidad);
 				DecimalFormat formateador = new DecimalFormat(".##");
-				tabla.setValueAt(formateador.format(preciopublico), seleccion, 4);
+				//tabla.setValueAt(formateador.format(preciopublico), seleccion, 4);
 				}else{
 					JOptionPane.showMessageDialog(null, "No hay sufucientes en existencia");
 					cantidad=b;					
@@ -123,7 +123,7 @@ public class BuscarArticulo {
 						elbueno=b3;
 					}
 					
-					tabla.setValueAt(1, i, 5);
+					tabla.setValueAt(1, i, 4);
 					sql="UPDATE productos SET cantidad ='"+elbueno+"'WHERE clave='"+codigo+"'";
 					comando.execute(sql);
 					iva=Float.parseFloat(tabla.getValueAt(seleccion, 3).toString());
@@ -133,7 +133,7 @@ public class BuscarArticulo {
 					cantidad=1;
 					preciopublico=(precioiva*cantidad);
 					DecimalFormat formateador = new DecimalFormat(".##");
-					tabla.setValueAt(formateador.format(preciopublico), i, 4);
+					//tabla.setValueAt(formateador.format(preciopublico), i, 4);
 				}
 				
 			}
@@ -145,7 +145,7 @@ public class BuscarArticulo {
 					precioiva=iva+precio;
 					preciopublico=(precioiva*cantidad);
 					DecimalFormat formateador = new DecimalFormat(".##");
-					tabla.setValueAt(formateador.format(preciopublico), seleccion, 4);
+					//tabla.setValueAt(formateador.format(preciopublico), seleccion, 4);
 			}
 			
 			}else{
@@ -163,7 +163,7 @@ public class BuscarArticulo {
 					comando.execute(sql);
 					preciopublico=(precioiva*cantidad);
 					DecimalFormat formateador = new DecimalFormat(".##");
-					tabla.setValueAt(formateador.format(preciopublico), seleccion, 4);
+					//tabla.setValueAt(formateador.format(preciopublico), seleccion, 4);
 				}
 				
 			}
@@ -205,7 +205,7 @@ public class BuscarArticulo {
 		String sql="";
 		int y=tabla_1.getSelectedRow();
 		String codigo =tabla_1.getValueAt(y,0).toString();
-		int actualTabla=Integer.parseInt(tabla_1.getValueAt(y, 5).toString());
+		int actualTabla=Integer.parseInt(tabla_1.getValueAt(y, 4).toString());
 		int exis=existencia(String.valueOf(codigo));
 		int nuevaCantidad=exis+actualTabla;
 		sql="UPDATE productos SET cantidad ='"+nuevaCantidad+"'WHERE clave='"+codigo+"'";
