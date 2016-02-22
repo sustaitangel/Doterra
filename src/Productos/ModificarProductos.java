@@ -30,14 +30,14 @@ import java.awt.event.ActionEvent;
 public class ModificarProductos extends JFrame {
 
 	private JPanel contentPane;
-	private static JTextField txtClave;
-	private static JTextField txtNombreProducto;
-	private static JTextField txtUnidad;
-	private static JTextField txtPrecioCliente;
-	private static JTextField txtPrecioDistribuidor;
-	private static JTextField txtPrecioGota;
-	private static JTextField txtPv;
-	private static JTextField txtCantidad;
+	public static JTextField txtClave;
+	public static JTextField txtNombreProducto;
+	public static JTextField txtUnidad;
+	public static JTextField txtPrecioCliente;
+	public static JTextField txtPrecioDistribuidor;
+	public static JTextField txtPrecioGota;
+	public static JTextField txtPv;
+	public static JTextField txtCantidad;
 	Componentes componentes = new Componentes();
 
 	/**
@@ -189,7 +189,9 @@ public class ModificarProductos extends JFrame {
 				int replay = JOptionPane.showConfirmDialog(null,"El registro será modificado. ¿Desea continuar?",
 						"Confirmar",JOptionPane.YES_NO_OPTION);
 				if (replay == JOptionPane.YES_OPTION) {
-					if(txtClave.getText().length()==0){
+					JOptionPane.showMessageDialog(null, txtClave.getText().length());
+					if(txtClave.getText().length()!=0){
+						JOptionPane.showMessageDialog(null, "entre");
 							componentes.actualizarProductos(txtClave,txtNombreProducto,txtPrecioCliente,
 									txtCantidad,txtPrecioDistribuidor,txtUnidad,txtPv,txtPrecioGota);
 							

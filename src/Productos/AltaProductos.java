@@ -76,6 +76,13 @@ public class AltaProductos extends JFrame {
 	private static   String vector[]={"Clave","Nombre","Unidad","P.Cliente","P.Distribuidor","P.Gota","PV","Cantidad"};
 	public static   DefaultTableModel modelo2= new DefaultTableModel(matriz,vector);
 	public static String Codigo;
+	public static String NombreProducto;
+	public static String Unidad;
+	public static String Cantidad;
+	public static String PrecioCliente;
+	public static String PrecioDistribuidor;
+	public static String PrecioGota;
+	public static String Pv;
 	
 	/**
 	 * Launch the application.
@@ -211,9 +218,16 @@ public class AltaProductos extends JFrame {
 		btnActualizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ModificarProductos ob20 = new ModificarProductos();
-				ob20.componentes.
 				ob20.setVisible(true);
 				ob20.setLocation(500,100);
+				ModificarProductos.txtClave.setText(AltaProductos.Codigo);
+				ModificarProductos.txtCantidad.setText(Cantidad);
+				ModificarProductos.txtNombreProducto.setText(NombreProducto);
+				ModificarProductos.txtPrecioCliente.setText(PrecioCliente);
+				ModificarProductos.txtPrecioDistribuidor.setText(PrecioDistribuidor);
+				ModificarProductos.txtPrecioGota.setText(PrecioGota);
+				ModificarProductos.txtPv.setText(Pv);
+				ModificarProductos.txtUnidad.setText(Unidad);
 
 			}
 		});
@@ -303,15 +317,13 @@ public class AltaProductos extends JFrame {
 						ResultSet resultSet = list.executeQuery(sqlsString);
 						resultSet.next();
 						AltaProductos.Codigo = resultSet.getString("clave");
-						JOptionPane.showMessageDialog(null, Codigo+"codigo de altas");
-						final String NombreProducto = resultSet.getString("nombre");
-						final String Unidad = resultSet.getString("unidad");
-						final String Cantidad = resultSet.getString("cantidad");
-						final String PrecioCliente = resultSet.getString("precio_cliente");
-						final String PrecioDistribuidor = resultSet.getString("precio_distribuidor");
-						final String PrecioGota = resultSet.getString("precio_gota");
-						final String Pv = resultSet.getString("pv");
-						mp.llenarCampos(Codigo,NombreProducto,Unidad,Cantidad,PrecioCliente,PrecioDistribuidor,PrecioGota,Pv);
+						AltaProductos.NombreProducto = resultSet.getString("nombre");
+						AltaProductos.Unidad = resultSet.getString("unidad");
+						AltaProductos.Cantidad = resultSet.getString("cantidad");
+						AltaProductos.PrecioCliente = resultSet.getString("precio_cliente");
+						AltaProductos.PrecioDistribuidor = resultSet.getString("precio_distribuidor");
+						AltaProductos.PrecioGota = resultSet.getString("precio_gota");
+						AltaProductos.Pv = resultSet.getString("pv");
 						
 					} catch (Exception e) {
 						// TODO: handle exception

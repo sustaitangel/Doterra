@@ -1,7 +1,5 @@
 package Productos;
 
-import groovyjarjarcommonscli.ParseException;
-
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.sql.Connection;
@@ -149,7 +147,7 @@ public class Componentes {
 					if (txtClave.equals("")) {
 					
 						sql = "update productos set clave = ?, nombre = ?,precio_gota = ?, precio_cliente = ?," +
-								"cantidad = ?, precio_distribuidor = ?,pv = ?,unidad = ?, foto = ? where id_producto = '" + "'";
+								"cantidad = ?, precio_distribuidor = ?,pv = ?,unidad = ?, foto = ? where clave = '" + "'";
 						ps = (PreparedStatement) con.prepareStatement(sql);
 						ps.setString(1, txtClave.getText());
 						ps.setString(2, txtNombreProducto.getText());
