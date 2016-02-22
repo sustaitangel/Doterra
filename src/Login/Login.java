@@ -27,6 +27,10 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.factories.FormFactory;
+import com.jgoodies.forms.layout.RowSpec;
 
 public class Login extends JFrame {
 
@@ -56,25 +60,39 @@ public class Login extends JFrame {
 	public Login() {
 		setResizable(false);
 		setTitle("-- doTerra-- Iniciar Sesion");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 460, 207);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 373, 167);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		contentPane.setLayout(new FormLayout(new ColumnSpec[] {
+				FormFactory.UNRELATED_GAP_COLSPEC,
+				ColumnSpec.decode("120px"),
+				FormFactory.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("82px"),
+				FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
+				ColumnSpec.decode("13px"),
+				FormFactory.UNRELATED_GAP_COLSPEC,
+				ColumnSpec.decode("86px"),},
+			new RowSpec[] {
+				RowSpec.decode("20px"),
+				FormFactory.UNRELATED_GAP_ROWSPEC,
+				RowSpec.decode("20px"),
+				FormFactory.PARAGRAPH_GAP_ROWSPEC,
+				RowSpec.decode("20px"),
+				FormFactory.UNRELATED_GAP_ROWSPEC,
+				RowSpec.decode("20px"),}));
 		
 		JLabel lblBienvenido = new JLabel("Bienvenido");
 		lblBienvenido.setToolTipText("Bienvenido");
 		lblBienvenido.setForeground(new Color(123, 104, 238));
-		lblBienvenido.setFont(new Font("Franklin Gothic Book", Font.BOLD, 19));
-		lblBienvenido.setBounds(146, 11, 106, 35);
-		contentPane.add(lblBienvenido);
+		lblBienvenido.setFont(new Font("Franklin Gothic Book", Font.BOLD, 16));
+		contentPane.add(lblBienvenido, "2, 1, 3, 1, right, fill");
 		
 		JLabel lblUsuario = new JLabel("Usuario:");
-		lblUsuario.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblUsuario.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblUsuario.setForeground(new Color(34, 139, 34));
-		lblUsuario.setBounds(38, 55, 57, 20);
-		contentPane.add(lblUsuario);
+		contentPane.add(lblUsuario, "4, 3, center, fill");
 		
 		textField = new JTextField();
 		textField.addKeyListener(new KeyAdapter() {
@@ -96,20 +114,17 @@ public class Login extends JFrame {
 				}
 			}
 		});
-		textField.setBounds(105, 57, 124, 21);
-		contentPane.add(textField);
+		contentPane.add(textField, "6, 3, 3, 1, fill, top");
 		textField.setColumns(10);
 		
 		JLabel lblContrasena = new JLabel("Contrase\u00F1a:");
 		lblContrasena.setForeground(new Color(34, 139, 34));
-		lblContrasena.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblContrasena.setBounds(10, 100, 85, 20);
-		contentPane.add(lblContrasena);
+		lblContrasena.setFont(new Font("Tahoma", Font.BOLD, 12));
+		contentPane.add(lblContrasena, "4, 5, left, fill");
 		
 		Img n=new Img();
 		JLabel lblNewLabel = new JLabel(n.login());
-		lblNewLabel.setBounds(239, 44, 200, 79);
-		contentPane.add(lblNewLabel);
+		contentPane.add(lblNewLabel, "2, 3, 1, 3, left, bottom");
 		
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
@@ -117,8 +132,7 @@ public class Login extends JFrame {
 				Login.this.dispose();
 			}
 		});
-		btnCancelar.setBounds(77, 145, 106, 23);
-		contentPane.add(btnCancelar);
+		contentPane.add(btnCancelar, "4, 7, 3, 1, fill, fill");
 		
 		JButton btnEntrar = new JButton("Entrar");
 		btnEntrar.addActionListener(new ActionListener() {
@@ -134,8 +148,7 @@ public class Login extends JFrame {
 				}
 			}
 		});
-		btnEntrar.setBounds(199, 145, 106, 23);
-		contentPane.add(btnEntrar);
+		contentPane.add(btnEntrar, "8, 7, fill, fill");
 		
 		passwordField = new JPasswordField();
 		passwordField.addKeyListener(new KeyAdapter() {
@@ -148,7 +161,6 @@ public class Login extends JFrame {
 				}
 			}
 		});
-		passwordField.setBounds(105, 102, 124, 20);
-		contentPane.add(passwordField);
+		contentPane.add(passwordField, "6, 5, 3, 1, fill, top");
 	}
 }

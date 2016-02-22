@@ -133,7 +133,7 @@ public class Componentes {
 		Connection cn=cx.conexion(null);
 		Statement comando;
 		con = conex.conexion(hola);
-		String existente="SELECT * FROM productos WHERE clave='"+txtClave.getText()+"'";
+		String existente="SELECT * FROM productos WHERE Clave='"+txtClave.getText()+"'";
 		try {
 			comando=(Statement) cn.createStatement();
 			ResultSet rs= ((java.sql.Statement) comando).executeQuery(existente);
@@ -144,10 +144,9 @@ public class Componentes {
 				int cantidadTexto=Integer.parseInt(cantidadT);
 				int ncant=cantidad+cantidadTexto;
 					PreparedStatement ps;
-					if (txtClave.equals("")) {
 					
 						sql = "update productos set clave = ?, nombre = ?,precio_gota = ?, precio_cliente = ?," +
-								"cantidad = ?, precio_distribuidor = ?,pv = ?,unidad = ?, foto = ? where clave = '" + "'";
+								"cantidad = ?, precio_distribuidor = ?,pv = ?,unidad = ? where id_producto = '" + "'";
 						ps = (PreparedStatement) con.prepareStatement(sql);
 						ps.setString(1, txtClave.getText());
 						ps.setString(2, txtNombreProducto.getText());
@@ -157,19 +156,6 @@ public class Componentes {
 						ps.setString(6, txtPrecioDistribuidor.getText());
 						ps.setString(7, txtPrecioGota.getText());
 						ps.setString(8, txtPv.getText());
-					}else {
-						sql = "update productos set clave = ?, nombre = ?,precio_distribuidor = ?,unidad = ?,pv = ?, precio_gota = ?," +
-								"cantidad = ?, precio_cliente = ? where id_producto = '" +  "'";
-						ps = (PreparedStatement) con.prepareStatement(sql);
-						ps.setString(1, txtClave.getText());
-						ps.setString(2, txtNombreProducto.getText());
-						ps.setString(3, txtUnidad.getText());
-						ps.setInt(4, ncant);
-						ps.setString(5, txtPrecioCliente.getText());
-						ps.setString(6, txtPrecioDistribuidor.getText());
-						ps.setString(7, txtPrecioGota.getText());
-						ps.setString(8, txtPv.getText());
-					}
 			
 			
 						int n = ps.executeUpdate();

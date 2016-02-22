@@ -9,7 +9,7 @@ public class Img {
 		return fondo;
 	}
 	public Icon login(){
-		Icon doterra= new ImageIcon(getClass().getResource("logo1.png"));
+		Icon doterra= new ImageIcon(getClass().getResource("logo_insesion.png"));
 		return doterra;
 	}
 	public Icon btnProductos(){

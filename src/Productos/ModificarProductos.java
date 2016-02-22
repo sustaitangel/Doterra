@@ -190,12 +190,12 @@ public class ModificarProductos extends JFrame {
 						"Confirmar",JOptionPane.YES_NO_OPTION);
 				if (replay == JOptionPane.YES_OPTION) {
 					JOptionPane.showMessageDialog(null, txtClave.getText().length());
-					if(txtClave.getText().length()!=0){
 						JOptionPane.showMessageDialog(null, "entre");
 							componentes.actualizarProductos(txtClave,txtNombreProducto,txtPrecioCliente,
 									txtCantidad,txtPrecioDistribuidor,txtUnidad,txtPv,txtPrecioGota);
+							dispose();
 							
-					}
+					
 				} else {}
 			}
 		});
