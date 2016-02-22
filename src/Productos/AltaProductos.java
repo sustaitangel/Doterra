@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLayeredPane;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
 
 import java.awt.Color;
 
@@ -15,6 +16,7 @@ import javax.swing.JLabel;
 
 import java.awt.Font;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.JComboBox;
@@ -31,6 +33,22 @@ import javax.swing.DefaultComboBoxModel;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+import Conexion.Conectar;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+import com.mysql.jdbc.PreparedStatement;
+
+import javax.swing.JTable;
+
+import Productos.ModificarProductos;
 
 public class AltaProductos extends JFrame {
 
@@ -47,6 +65,17 @@ public class AltaProductos extends JFrame {
 	private JTextField txtPrecioGota;
 	int tipo=3;
 	String tipo1;
+	Componentes componentes = new Componentes();
+	ModificarProductos mp = new ModificarProductos();
+	Conectar conex = new Conectar();
+	java.sql.Connection con;
+	java.sql.Statement list;
+	ResultSet rs;
+	private JTable tableVerProductos;
+	private static   String matriz[][]={};
+	private static   String vector[]={"Clave","Nombre","Unidad","P.Cliente","P.Distribuidor","P.Gota","PV","Cantidad"};
+	public static   DefaultTableModel modelo2= new DefaultTableModel(matriz,vector);
+	public static String Codigo;
 	
 	/**
 	 * Launch the application.
@@ -67,10 +96,44 @@ public class AltaProductos extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	void listarProductos(String buscar){
+		JTextField hola = null;
+		String sql = "";
+		try {
+			con = conex.conexion(hola);
+			String[] titulos = {"Clave","Nombre","Unidad","P.Cliente","P.Distribuidor","P.Gota","PV","Cantidad"};
+			if (buscar.equals("")) {
+				sql = "select clave,nombre,unidad,precio_cliente,precio_distribuidor,precio_gota,pv,cantidad " +
+						"from productos as p ";
+				
+			} else {
+				sql = "select clave,nombre,unidad,precio_cliente,precio_distribuidor,precio_gota,pv,cantidad " +
+						"from productos as p " +
+						"where nombre like '%" + buscar + "%'" +
+						" OR clave LIKE '%" + buscar + "%'";
+			}
+			list =  con.createStatement();
+			DefaultTableModel model = new DefaultTableModel(null, titulos);
+			tableVerProductos.setModel(model);
+			rs = list.executeQuery(sql);
+			
+			while (rs.next()) {
+				String precioString = "$ " + String.format("%.2f", rs.getFloat("precio_cliente"));
+				String preciodString = "$ " + String.format("%.2f", rs.getFloat("precio_distribuidor"));
+				String preciogString = "$ " + String.format("%.2f", rs.getFloat("precio_gota"));
+				model.addRow(new Object[] {rs.getString("clave"),rs.getString("nombre"),rs.getString("unidad"),
+						precioString,preciodString,preciogString,rs.getFloat("pv"),rs.getInt("cantidad")});
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+	}
 	public AltaProductos() {
-		setTitle("--doTerra-- Alta Productos");
+		setResizable(false);
+		setTitle("--doTerra-- Alta Productos--");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 558, 477);
+		setBounds(100, 100, 733, 477);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -78,7 +141,7 @@ public class AltaProductos extends JFrame {
 		
 		JLayeredPane layeredPane = new JLayeredPane();
 		layeredPane.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Alta de Productos", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(75, 0, 130)));
-		layeredPane.setBounds(10, 10, 522, 417);
+		layeredPane.setBounds(10, 10, 698, 417);
 		contentPane.add(layeredPane);
 		
 		Img n7=new Img ();
@@ -86,7 +149,7 @@ public class AltaProductos extends JFrame {
 		Img n8=new Img();
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(10, 21, 502, 374);
+		tabbedPane.setBounds(10, 21, 678, 374);
 		layeredPane.add(tabbedPane);
 		
 		JPanel panel = new JPanel();
@@ -105,33 +168,101 @@ public class AltaProductos extends JFrame {
 		layeredPane_1.add(lblCodigoNombre);
 		
 		txtBuscarProductos = new JTextField();
+		txtBuscarProductos.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				componentes.mayusculas(e);
+			}
+		});
 		txtBuscarProductos.setBounds(27, 36, 170, 20);
 		layeredPane_1.add(txtBuscarProductos);
 		txtBuscarProductos.setColumns(10);
 		
 		Img n10=new Img();
 		JButton btnBuscar = new JButton(n10.Buscar());
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String buscarString = txtBuscarProductos.getText();
+				if (!buscarString.equals("")) {
+					listarProductos(buscarString);
+					txtBuscarProductos.setText("");
+				}else{
+					listarProductos("");
+				}
+			
+			}
+		});
 		btnBuscar.setBounds(207, 27, 61, 41);
 		layeredPane_1.add(btnBuscar);
 		
 		Img n11=new Img();
 		JButton btnEliminar = new JButton(n11.Eliminar());
+		btnEliminar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				componentes.eliminarProducto(tableVerProductos);
+				listarProductos("");
+			}
+		});
 		btnEliminar.setBounds(278, 27, 61, 39);
 		layeredPane_1.add(btnEliminar);
 		
 		Img n12=new Img();
 		JButton btnActualizar = new JButton(n12.Actualizar());
+		btnActualizar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ModificarProductos ob20 = new ModificarProductos();
+				ob20.componentes.
+				ob20.setVisible(true);
+				ob20.setLocation(500,100);
+
+			}
+		});
 		btnActualizar.setBounds(349, 27, 61, 39);
 		layeredPane_1.add(btnActualizar);
 		
 		JLayeredPane layeredPane_2 = new JLayeredPane();
 		layeredPane_2.setBorder(new TitledBorder(null, "Lista de productos", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(128, 0, 128)));
-		layeredPane_2.setBounds(10, 104, 477, 231);
+		layeredPane_2.setBounds(10, 104, 653, 231);
 		panel.add(layeredPane_2);
+		layeredPane_2.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 23, 457, 197);
+		scrollPane.setBounds(10, 23, 633, 197);
 		layeredPane_2.add(scrollPane);
+		
+		tableVerProductos = new JTable(){
+			public boolean isCellEditable(int rowIndex, int columnIndex) { 
+				if (columnIndex==5) return true; 
+				if (columnIndex==3) return false;
+				if (columnIndex==2) return true;
+				else 
+				return false; 
+				} 
+		};
+		tableVerProductos.setCellSelectionEnabled(true);
+		tableVerProductos.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		scrollPane.setColumnHeaderView(tableVerProductos);
+        tableVerProductos.setBackground(new Color(255, 255, 255));
+		
+		scrollPane.setColumnHeaderView(tableVerProductos);
+		scrollPane.setViewportView(tableVerProductos);
+		tableVerProductos.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Clave", "Nombre", "Unidad", "P.Cliente", "P.Distribuidor", "P.Gota", "PV", "Cantidad"
+			}
+		) {
+			boolean[] columnEditables = new boolean[] {
+				true, true, true, true, true, true, true, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		tableVerProductos.getColumnModel().getColumn(3).setPreferredWidth(67);
+		tableVerProductos.getColumnModel().getColumn(4).setPreferredWidth(81);
+		tableVerProductos.getColumnModel().getColumn(7).setResizable(false);
 		
 		JPanel panel_1 = new JPanel();
 		tabbedPane.addTab("Alta de Productos", null, panel_1, null);
@@ -158,6 +289,38 @@ public class AltaProductos extends JFrame {
 				limpiar();	
 			}
 		});
+		tableVerProductos.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent arg0) {
+				componentes.habilitar(btnEliminar, btnActualizar);
+				if (arg0.getButton() == 1) {
+					
+					int fila = tableVerProductos.getSelectedRow();
+					final int id=Integer.parseInt(tableVerProductos.getValueAt(fila, 0).toString());
+					try {
+						list = con.createStatement();
+						String sqlsString = "select * from productos where clave = " + 
+								tableVerProductos.getValueAt(fila, 0);
+						ResultSet resultSet = list.executeQuery(sqlsString);
+						resultSet.next();
+						AltaProductos.Codigo = resultSet.getString("clave");
+						JOptionPane.showMessageDialog(null, Codigo+"codigo de altas");
+						final String NombreProducto = resultSet.getString("nombre");
+						final String Unidad = resultSet.getString("unidad");
+						final String Cantidad = resultSet.getString("cantidad");
+						final String PrecioCliente = resultSet.getString("precio_cliente");
+						final String PrecioDistribuidor = resultSet.getString("precio_distribuidor");
+						final String PrecioGota = resultSet.getString("precio_gota");
+						final String Pv = resultSet.getString("pv");
+						mp.llenarCampos(Codigo,NombreProducto,Unidad,Cantidad,PrecioCliente,PrecioDistribuidor,PrecioGota,Pv);
+						
+					} catch (Exception e) {
+						// TODO: handle exception
+						JOptionPane.showMessageDialog(null, "Error " + e.getMessage());
+					}
+				}
+			}
+		});
+		componentes.deshabilitar(btnEliminar,btnActualizar);
 		btnGuardar.setBounds(232, 301, 89, 34);
 		panel_1.add(btnGuardar);
 		
