@@ -108,6 +108,7 @@ public class Login extends JFrame {
 						IniSesion ini=new IniSesion();
 						ini.iniSecion(textField, passwordField);
 						System.out.println("hola"+IniSesion.conta);
+						Login.this.dispose();
 						if(IniSesion.conta>=5){
 						
 					}

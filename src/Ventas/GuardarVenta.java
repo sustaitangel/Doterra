@@ -12,29 +12,21 @@ import javax.swing.table.DefaultTableModel;
 import Conexion.Conectar;
 
 public class GuardarVenta {
-	public void guardarventa(String folio, JTextField txtefectivo,JTextField txtCambio,JTextField txtSubtotal,JTextField txtTotal,
-			String fecha,JTextField txtDescuento ){
+	public void guardarventa(String folio, JTextField txtefectivo,JTextField txtCliente,JTextField txtSubtotal,JTextField txtTotal,
+			String fecha ){
 		String efectivo2=txtefectivo.getText();
-		String cambio2=txtCambio.getText();
 		String subtotal2=txtSubtotal.getText();
 		String total2=txtTotal.getText();
-		String descuento2=txtDescuento.getText();
 		float efectivo1=Float.parseFloat(efectivo2);
-		float cambio=Float.parseFloat(cambio2);
 		float subtotal=Float.parseFloat(subtotal2);
 		float total=Float.parseFloat(total2);
-		float descuento;
-		if(descuento2.length()==0){
-			descuento=0;
-		}else{
-			descuento=Float.parseFloat(descuento2);
-		}
+
 		Conectar cx=new Conectar();
 		Connection cn=cx.conexion(null);
 		
-		String sql="INSERT INTO ventas (folio,efectivo,cambio,subtotal,total,fecha,descuento)VALUES('"+folio+"','"+efectivo1+"',"
-				+ "'"+cambio+"','"+subtotal+"','"+total+"','"+fecha+"','"+descuento+"')";
-		
+		String sql="INSERT INTO ventas (folio,cliente,importe,total_pv,total,fecha)VALUES('"+folio+"','"+txtCliente.getText()+"',"
+				+ "'"+efectivo1+"','"+subtotal+"','"+total+"','"+fecha+"')";
+		System.out.println(sql);
 		try {
 			
 			Statement comando = (Statement) cn.createStatement();
@@ -45,7 +37,7 @@ public class GuardarVenta {
 		}
 	}
 	
-	public void detalleVenta(DefaultTableModel modelo1,JTable table_1,String fecha, String folio){
+	public void detalleVenta(DefaultTableModel modelo1,JTable table_1,String fecha, String folio,JTextField txtCliente){
 		try{
 			Conectar cx=new Conectar();
 			Connection cn= cx.conexion(null);
@@ -56,18 +48,17 @@ public class GuardarVenta {
 				String nombre =(table_1.getValueAt(i, 1).toString());
 				String Precio1=(table_1.getValueAt(i, 2).toString());
 				float precio=Float.parseFloat(Precio1);
-				String PrecioIva1=(table_1.getValueAt(i, 4).toString());
+				String PrecioIva1=(table_1.getValueAt(i, 3).toString());
 				float precioIva=Float.parseFloat(PrecioIva1);
-				String cantidad1=(table_1.getValueAt(i, 5).toString());
+				String cantidad1=(table_1.getValueAt(i, 4).toString());
 				int cantidad = Integer.parseInt(cantidad1);
-				String sql="INSERT INTO ventas_has_productos (folio,codigo,nombre,precio,precioIva,cantidad,fecha)"
-						+ "VALUES('"+folio+"','"+id1+"','"+nombre+"','"+precio+"','"+precioIva+"','"+cantidad+"','"+fecha+"')";
+				String sql="INSERT INTO ventas_has_productos (folio,clave,nombre,precio,total_pv,cantidad,fecha, cliente)"
+						+ "VALUES('"+folio+"','"+id1+"','"+nombre+"','"+precio+"','"+precioIva+"','"+cantidad+"','"+fecha+"','"+txtCliente.getText()+"')";
 				comando.execute(sql);
+				System.out.println(sql);
 				
 			}
-			VentasBebida ox=new VentasBebida();
-			ox.carton(modelo1, table_1);
-			ox.botella(modelo1, table_1);
+			
 		}catch(SQLException e){
 			JOptionPane.showMessageDialog(null, e);
 		}

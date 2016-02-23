@@ -104,9 +104,6 @@ public class Clientes extends JFrame {
 		layeredPane_1.add(btnEliminar);
 		
 		Img n38 = new Img();
-		JButton btnActualizar = new JButton(n38.Actualizar());
-		btnActualizar.setBounds(341, 21, 61, 41);
-		layeredPane_1.add(btnActualizar);
 		
 		JLayeredPane layeredPane_2 = new JLayeredPane();
 		layeredPane_2.setBorder(new TitledBorder(null, "Clientes", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(128, 0, 128)));

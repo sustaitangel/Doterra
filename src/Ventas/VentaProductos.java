@@ -32,6 +32,7 @@ import javax.swing.JTable;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.text.DecimalFormat;
+import java.util.Calendar;
 
 public class VentaProductos extends JFrame {
 
@@ -45,6 +46,7 @@ public class VentaProductos extends JFrame {
 	private static   String matriz[][]={};
 	private static   String vector[]={"Código","Nombre","Precio Cliente","PV","Cantidad"};
 	public static   DefaultTableModel modelo1= new DefaultTableModel(matriz,vector);
+	public JLabel lblDt = new JLabel();
 
 	/**
 	 * Launch the application.
@@ -110,7 +112,7 @@ public class VentaProductos extends JFrame {
 		layeredPane.add(lblFolio);
 		Generador ob= new Generador();
 		String folio= ob.folio();
-		JLabel lblDt = new JLabel(folio);
+		lblDt.setText(folio);
 		lblDt.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblDt.setForeground(new Color(34, 139, 34));
 		lblDt.setBounds(66, 79, 73, 14);
@@ -159,6 +161,17 @@ public class VentaProductos extends JFrame {
 		JButton btnTerminarventa = new JButton(n14.TerminarVenta());
 		btnTerminarventa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Calendar cal=Calendar.getInstance();
+				int mes=cal.get(Calendar.MONTH);
+				mes=mes+1;
+				String folio1=lblDt.getText();
+				String fecha1=cal.get(Calendar.YEAR)+"-"+mes+"-"+cal.get(Calendar.DATE);
+				GuardarVenta ob= new GuardarVenta();
+				ob.guardarventa(folio1, txtImporte, txtCliente, txtTotalpv, txtTotal, fecha1);
+				ob.detalleVenta(modelo1, table, fecha1, folio1,txtCliente);
+				ob.vaciar(table);
+				limpiar();
+				
 				
 			}
 		});
@@ -259,5 +272,14 @@ public class VentaProductos extends JFrame {
 			
 			//txtCambio.setText("");
 		}
+	}
+	public void limpiar(){
+		txtTotal.setText("0.0");
+		txtImporte.setText("");
+		txtTotalpv.setText("0.0");
+		txtCliente.setText("");
+		Generador ob= new Generador();
+		String folio= ob.folio();
+		lblDt.setText(folio);
 	}
 }
