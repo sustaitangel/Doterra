@@ -108,8 +108,9 @@ public class VentaProductos extends JFrame {
 		lblFolio.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblFolio.setBounds(15, 79, 41, 14);
 		layeredPane.add(lblFolio);
-		
-		JLabel lblDt = new JLabel("DT0001");
+		Generador ob= new Generador();
+		String folio= ob.folio();
+		JLabel lblDt = new JLabel(folio);
 		lblDt.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblDt.setForeground(new Color(34, 139, 34));
 		lblDt.setBounds(66, 79, 73, 14);
@@ -156,6 +157,11 @@ public class VentaProductos extends JFrame {
 		
 		Img n14 = new Img();
 		JButton btnTerminarventa = new JButton(n14.TerminarVenta());
+		btnTerminarventa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		btnTerminarventa.setBounds(225, 359, 79, 40);
 		layeredPane.add(btnTerminarventa);
 		
