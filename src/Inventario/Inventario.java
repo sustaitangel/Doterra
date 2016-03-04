@@ -29,15 +29,22 @@ import Conexion.Conectar;
 import Imagenes.Img;
 
 import javax.swing.ButtonGroup;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class Inventario extends JFrame {
 
 	private JPanel contentPane;
 	private static   String matriz[][]={};
-	private static   String vector[]={"ID","Producto","P.Distribuidor","P.Gota","P.Cliente","Cantidad"};
+	private static   String vector[]={"Id","Clave", "Nombre", "P.Cliente", "P.Distribuidor", "P.Gota", "Cantidad"};
 	public static   DefaultTableModel modelo2= new DefaultTableModel(matriz,vector);
 	private JTextField txtBuscarInventario;
 	private JTable tableProductos;
@@ -46,7 +53,7 @@ public class Inventario extends JFrame {
 	java.sql.Connection con;
 	java.sql.Statement list;
 	ResultSet rs;
-	String[] titulos = {"ID","Clave","Producto","P.Distribuidor","P.Gota","P.Cliente","Cantidad"};
+	
 
 	/**
 	 * Launch the application.
@@ -81,11 +88,11 @@ public class Inventario extends JFrame {
 						"from productos as p " +
 						"inner join categoria as cat on id_categoria = categoria_id_categoria " +
 						"where nombre like '%" + buscar + "%'" +
-						" OR codigo LIKE '%" + buscar + "%'" +
-						" OR cat.descripcion LIKE '%" + buscar + "%'";
+						" OR clave LIKE '%" + buscar + "%'" +
+						" OR nombre LIKE '%" + buscar + "%'";
 			}
 			list =  con.createStatement();
-			DefaultTableModel model = new DefaultTableModel(null, titulos);
+			DefaultTableModel model = new DefaultTableModel(null, vector);
 			tableProductos.setModel(model);
 			rs = list.executeQuery(sql);
 			while (rs.next()) {
@@ -118,7 +125,7 @@ public class Inventario extends JFrame {
 						" OR cat.descripcion LIKE '%" + buscar + "%'" + " AND cantidad = 0";
 			}
 			list =  con.createStatement();
-			DefaultTableModel model = new DefaultTableModel(null, titulos);
+			DefaultTableModel model = new DefaultTableModel(null, vector);
 			tableProductos.setModel(model);
 			rs = list.executeQuery(sql);
 			while (rs.next()) {
@@ -205,6 +212,22 @@ public class Inventario extends JFrame {
 		rb.add(rdbtnTodosLosRegistros);
 		
 		JButton btnExportar = new JButton("Exportar PDF");
+		btnExportar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JTextField hola = null;
+				con = conex.conexion(hola);
+				try {
+					String ubicacion = System.getProperty("user.dir")+"/src/Reporte/Inventario.jasper";
+					JasperReport jasperReport = (JasperReport) JRLoader.loadObjectFromFile(ubicacion);
+					JasperPrint print = JasperFillManager.fillReport(jasperReport, null, con);
+					JasperViewer viewer = new JasperViewer(print,false);
+					viewer.setVisible(true);
+				} catch (Exception ex) {
+					// TODO: handle exception
+					JOptionPane.showMessageDialog(null, "Error  " + ex.getMessage());
+				}
+			}
+		});
 		btnExportar.setBounds(463, 30, 111, 20);
 		layeredPane_1.add(btnExportar);
 		
@@ -217,22 +240,19 @@ public class Inventario extends JFrame {
 		JScrollPane scrollPane1 = new JScrollPane();
 		scrollPane1.setBounds(10, 24, 575, 196);
 		layeredPane_2.add(scrollPane1);
+		tableProductos = new JTable();
+		tableProductos.setCellSelectionEnabled(true);
+		tableProductos.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		scrollPane1.setColumnHeaderView(tableProductos);
+        tableProductos.setBackground(new Color(255, 255, 255));
 		
-		
-		tableProductos = new JTable(){
-			public boolean isCellEditable(int rowIndex, int columnIndex) { 
-				if (columnIndex==5) return true; 
-				if (columnIndex==3) return false;
-				if (columnIndex==2) return true;
-				else 
-				return false; 
-				} 
-		};
-		scrollPane1.setColumnHeaderView(tableProductos);tableProductos.setModel(new DefaultTableModel(
+		scrollPane1.setColumnHeaderView(tableProductos);
+		scrollPane1.setViewportView(tableProductos);
+		tableProductos.setModel(new DefaultTableModel(
 				new Object[][] {
 				},
 				new String[] {
-					"ID", "Clave","Producto", "P.Distribuidor", "P.Gota", "P.Cliente", "Cantidad"
+					"Id","Clave", "Nombre", "P.Cliente", "P.Distribuidor", "P.Gota", "PV", "Cantidad"
 				}
 			) {
 				boolean[] columnEditables = new boolean[] {
@@ -242,5 +262,10 @@ public class Inventario extends JFrame {
 					return columnEditables[column];
 				}
 			});
+			tableProductos.getColumnModel().getColumn(3).setPreferredWidth(67);
+			tableProductos.getColumnModel().getColumn(4).setPreferredWidth(81);
+			tableProductos.getColumnModel().getColumn(7).setResizable(false);
+		
+		
 	}
 }

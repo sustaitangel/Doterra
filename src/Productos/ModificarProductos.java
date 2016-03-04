@@ -38,6 +38,7 @@ public class ModificarProductos extends JFrame {
 	public static JTextField txtPrecioGota;
 	public static JTextField txtPv;
 	public static JTextField txtCantidad;
+	int id_producto;
 	Componentes componentes = new Componentes();
 
 	/**
@@ -51,6 +52,7 @@ public class ModificarProductos extends JFrame {
 					ModificarProductos frame = new ModificarProductos();
 					frame.setVisible(true);
 					llenarCampos(AltaProductos.Codigo, null, null, null, null, null, null, null);
+					
 					JOptionPane.showMessageDialog(null, AltaProductos.Codigo+" aqui abro");
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -62,7 +64,7 @@ public class ModificarProductos extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	static void llenarCampos(String Clave,String NombreProducto,
+	 static void llenarCampos(String Clave,String NombreProducto,
 			String Cantidad,String Pv,String Unidad,String PrecioCliente,String PrecioDistribuidor,String PrecioGota){
 		JOptionPane.showMessageDialog(null, AltaProductos.Codigo+" codigo de modificasr");
 		txtClave.setText(AltaProductos.Codigo);
@@ -73,6 +75,7 @@ public class ModificarProductos extends JFrame {
 		txtPrecioCliente.setText(PrecioCliente);
 		txtPrecioDistribuidor.setText(PrecioDistribuidor);
 		txtPrecioDistribuidor.setText(PrecioDistribuidor);
+		
 	}
 	
 	public ModificarProductos() {
@@ -189,11 +192,10 @@ public class ModificarProductos extends JFrame {
 				int replay = JOptionPane.showConfirmDialog(null,"El registro será modificado. ¿Desea continuar?",
 						"Confirmar",JOptionPane.YES_NO_OPTION);
 				if (replay == JOptionPane.YES_OPTION) {
-					JOptionPane.showMessageDialog(null, txtClave.getText().length());
-						JOptionPane.showMessageDialog(null, "entre");
-							componentes.actualizarProductos(txtClave,txtNombreProducto,txtPrecioCliente,
-									txtCantidad,txtPrecioDistribuidor,txtUnidad,txtPv,txtPrecioGota);
-							dispose();
+					
+							Componentes on=new Componentes();
+							on.actualizarProductos(txtClave, txtNombreProducto, txtPrecioCliente, txtCantidad, txtPrecioDistribuidor, txtPrecioGota, txtUnidad, txtPv);
+							ModificarProductos.this.dispose();
 							
 					
 				} else {}

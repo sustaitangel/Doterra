@@ -145,20 +145,18 @@ public class Componentes {
 				int ncant=cantidad+cantidadTexto;
 					PreparedStatement ps;
 					
-						sql = "update productos set clave = ?, nombre = ?,precio_gota = ?, precio_cliente = ?," +
-								"cantidad = ?, precio_distribuidor = ?,pv = ?,unidad = ? where id_producto = '" + "'";
+						sql = "update productos set  nombre = ?,precio_gota = ?, precio_cliente = ?," +
+								"cantidad = ?, precio_distribuidor = ?,pv = ?,unidad = ? where clave = '"+txtClave.getText()+"'";
 						ps = (PreparedStatement) con.prepareStatement(sql);
-						ps.setString(1, txtClave.getText());
-						ps.setString(2, txtNombreProducto.getText());
-						ps.setString(3, txtUnidad.getText());
+						
+						ps.setString(1, txtNombreProducto.getText());
+						ps.setString(2, txtPrecioGota.getText());
+						ps.setString(3, txtPrecioCliente.getText());
 						ps.setInt(4, ncant);
-						ps.setString(5, txtPrecioCliente.getText());
-						ps.setString(6, txtPrecioDistribuidor.getText());
-						ps.setString(7, txtPrecioGota.getText());
-						ps.setString(8, txtPv.getText());
-			
-			
-						int n = ps.executeUpdate();
+						ps.setString(5, txtPrecioDistribuidor.getText());
+						ps.setString(6, txtPv.getText());
+						ps.setString(7, txtUnidad.getText());
+			            int n = ps.executeUpdate();
 				
 				if (n > 0) {
 					JOptionPane.showMessageDialog(null, "Registro modificado correctamente");

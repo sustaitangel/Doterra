@@ -28,6 +28,8 @@ public class PanelPrincipal1 extends JFrame {
 
 	private JPanel contentPane;
 	public static Login k=new Login();
+	JLabel lblHora;
+	RelojFecha relojFecha = new RelojFecha();
 	/**
 	 * Launch the application.
 	 */
@@ -130,7 +132,7 @@ public class PanelPrincipal1 extends JFrame {
 		JLabel lblUstedEstEn = new JLabel("Usted est\u00E1 en el sistema c\u00F3mo :");
 		lblUstedEstEn.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblUstedEstEn.setForeground(new Color(147, 112, 219));
-		lblUstedEstEn.setBounds(10, 322, 215, 26);
+		lblUstedEstEn.setBounds(10, 335, 215, 26);
 		contentPane.add(lblUstedEstEn);
 		
 		Img ob30 = new Img();
@@ -147,10 +149,24 @@ public class PanelPrincipal1 extends JFrame {
 		contentPane.add(btnClientes);
 		
 		JLabel lblUsuario = new JLabel();
+		lblUsuario.setForeground(new Color(34, 139, 34));
 		lblUsuario.setText(IniSesion.loger);
-		lblUsuario.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblUsuario.setBounds(235, 329, 220, 14);
+		lblUsuario.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblUsuario.setBounds(220, 335, 220, 26);
 		contentPane.add(lblUsuario);
+		JLabel lblFecha = new JLabel("");
+		lblFecha.setForeground(new Color(34, 139, 34));
+		lblFecha.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblFecha.setBounds(176, 297, 167, 27);
+		relojFecha.fecha(lblFecha);
+		contentPane.add(lblFecha);
+		
+		JLabel lblHora = new JLabel("");
+		lblHora.setForeground(new Color(34, 139, 34));
+		lblHora.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblHora.setBounds(382, 297, 149, 27);
+		contentPane.add(lblHora);
+		relojFecha.reloj(lblHora);
 	}
 	public void cerrar(){
 		k.dispose();

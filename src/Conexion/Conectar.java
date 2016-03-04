@@ -30,7 +30,7 @@ public class Conectar {
 			ArrayList listipos = new ArrayList();
 			String sentencia="select descripcion from perfil";
 			try{
-				Connection conexion=DriverManager.getConnection("jdbc:mysql://localhost/doterra","root" ,"sistemas");
+				Connection conexion=DriverManager.getConnection("jdbc:mysql://localhost/doterra","root","sistemas");
 				Statement comando=conexion.createStatement();
 			
 				ResultSet registro = comando.executeQuery(sentencia);

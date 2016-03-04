@@ -85,7 +85,7 @@ public class Login extends JFrame {
 		
 		JLabel lblBienvenido = new JLabel("Bienvenido");
 		lblBienvenido.setToolTipText("Bienvenido");
-		lblBienvenido.setForeground(new Color(123, 104, 238));
+		lblBienvenido.setForeground(new Color(128, 0, 128));
 		lblBienvenido.setFont(new Font("Franklin Gothic Book", Font.BOLD, 16));
 		contentPane.add(lblBienvenido, "2, 1, 3, 1, right, fill");
 		

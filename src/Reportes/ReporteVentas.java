@@ -16,11 +16,18 @@ import javax.swing.JLabel;
 import java.awt.Font;
 
 import Imagenes.Img;
+import Reporte.GeneradordeReportes;
 
 import com.toedter.calendar.JDateChooser;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.util.Calendar;
+
+import com.toedter.calendar.JDayChooser;
 
 public class ReporteVentas extends JFrame {
 
@@ -54,7 +61,7 @@ public class ReporteVentas extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+		final JDateChooser dateChooser_2 = new JDateChooser();
 		JLayeredPane layeredPane = new JLayeredPane();
 		layeredPane.setBorder(new TitledBorder(null, "Reporte de Ventas", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(128, 0, 128)));
 		layeredPane.setBounds(10, 10, 414, 225);
@@ -71,14 +78,24 @@ public class ReporteVentas extends JFrame {
 		lblSeleccioneElDia.setBounds(21, 41, 115, 23);
 		layeredPane_1.add(lblSeleccioneElDia);
 		
-		JDateChooser dateChooser = new JDateChooser();
-		dateChooser.setBounds(146, 44, 134, 20);
-		layeredPane_1.add(dateChooser);
 		
 		Img n25 = new Img ();
 		JButton btnReporteDia = new JButton(n25.GenerarReporte());
+		btnReporteDia.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int ano = dateChooser_2.getCalendar().get(Calendar.YEAR);
+				int mes = dateChooser_2.getCalendar().get(Calendar.MONTH) + 1;
+				int dia = dateChooser_2.getCalendar().get(Calendar.DAY_OF_MONTH);
+				String fecha= String.valueOf(ano)+"-"+String.valueOf(mes)+"-"+String.valueOf(dia);
+				GeneradordeReportes n= new GeneradordeReportes();
+				n.venta(fecha);
+			}
+		});
 		btnReporteDia.setBounds(290, 39, 82, 28);
 		layeredPane_1.add(btnReporteDia);
+		
+		dateChooser_2.setBounds(141, 41, 139, 23);
+		layeredPane_1.add(dateChooser_2);
 		
 		JLayeredPane layeredPane_2 = new JLayeredPane();
 		layeredPane_2.setBorder(new TitledBorder(null, "Detalle de Venta", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(128, 0, 128)));

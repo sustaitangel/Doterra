@@ -346,18 +346,24 @@ public class AltaProductos extends JFrame {
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				tipo1=(String)comboBox.getSelectedItem();
+				if(tipo1.equals("Cuidado Personal")){
+					tipo=5;
+				}
+				if(tipo1.equals("Accesorios")){
+					tipo=4;
+				}
 				if(tipo1.equals("Kits de inscripcion")){
 					tipo=3;
 				}
 				if(tipo1.equals("Mezclas de aceites")){
 					tipo=2;
 				}
-				if(tipo1.equals("Puro de grado terapeutico")){
+				if(tipo1.equals("Aceites Essenciales")){
 					tipo=1;
 				}
 			}
 		});
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Kits de inscripcion", "Puro de grado terapeutico", "Mezclas de aceites"}));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Kits de inscripcion", "Aceites Essenciales", "Mezclas de aceites","Acessorios","Cuidado Personal"}));
 		comboBox.setBounds(167, 47, 176, 22);
 		panel_1.add(comboBox);
 		

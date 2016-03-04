@@ -5,11 +5,11 @@ import javax.swing.ImageIcon;
 
 public class Img {
 	public Icon fondo(){
-		Icon fondo= new ImageIcon(getClass().getResource("fondo2.png"));
+		Icon fondo= new ImageIcon(getClass().getResource("logo_fondo.png"));
 		return fondo;
 	}
 	public Icon login(){
-		Icon doterra= new ImageIcon(getClass().getResource("logo_insesion.png"));
+		Icon doterra= new ImageIcon(getClass().getResource("logoSesion.png"));
 		return doterra;
 	}
 	public Icon btnProductos(){

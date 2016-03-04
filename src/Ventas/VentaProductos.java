@@ -23,6 +23,7 @@ import javax.swing.JButton;
 
 import Clientes.Clientes;
 import Imagenes.Img;
+import Principal.RelojFecha;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -47,6 +48,7 @@ public class VentaProductos extends JFrame {
 	private static   String vector[]={"Código","Nombre","Precio Cliente","PV","Cantidad"};
 	public static   DefaultTableModel modelo1= new DefaultTableModel(matriz,vector);
 	public JLabel lblDt = new JLabel();
+	RelojFecha relojFecha = new RelojFecha();
 
 	/**
 	 * Launch the application.
@@ -105,24 +107,24 @@ public class VentaProductos extends JFrame {
 		layeredPane.add(txtClave);
 		txtClave.setColumns(10);
 		
-		JLabel lblFolio = new JLabel("Folio :");
+		JLabel lblFolio = new JLabel("Folio:");
 		lblFolio.setForeground(new Color(34, 139, 34));
-		lblFolio.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblFolio.setBounds(15, 79, 41, 14);
+		lblFolio.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblFolio.setBounds(22, 79, 41, 14);
 		layeredPane.add(lblFolio);
 		Generador ob= new Generador();
 		String folio= ob.folio();
 		lblDt.setText(folio);
-		lblDt.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblDt.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblDt.setForeground(new Color(34, 139, 34));
-		lblDt.setBounds(66, 79, 73, 14);
+		lblDt.setBounds(58, 79, 73, 14);
 		layeredPane.add(lblDt);
 		
-		JLabel lblFecha = new JLabel("Fecha");
-		lblFecha.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblFecha.setForeground(new Color(34, 139, 34));
-		lblFecha.setBounds(15, 97, 46, 14);
-		layeredPane.add(lblFecha);
+		JLabel lblFecha1 = new JLabel("Fecha:");
+		lblFecha1.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblFecha1.setForeground(new Color(34, 139, 34));
+		lblFecha1.setBounds(17, 97, 46, 14);
+		layeredPane.add(lblFecha1);
 		
 		JLabel lblImporte = new JLabel("Importe :");
 		lblImporte.setForeground(new Color(34, 139, 34));
@@ -231,6 +233,13 @@ public class VentaProductos extends JFrame {
 		});
 		btnVerClientes.setBounds(218, 30, 86, 19);
 		layeredPane.add(btnVerClientes);
+		
+		JLabel lblFecha = new JLabel("");
+		lblFecha.setForeground(new Color(34, 139, 34));
+		lblFecha.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblFecha.setBounds(58, 97, 150, 14);
+		relojFecha.fecha(lblFecha);
+		layeredPane.add(lblFecha);
 	}
 	public void suma(){
 		int j=table.getRowCount()-1;
