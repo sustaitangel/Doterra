@@ -19,7 +19,7 @@ public class GeneradordeReportes {
 		Conectar cx=new Conectar();
 		Connection cn= cx.conexion(null);
 		try{
-			 String ubicacion=System.getProperty("user.dir")+"/Reporte/ReporteVentas.jasper";
+			 String ubicacion=System.getProperty("user.dir")+"/src/Reporte/ReporteVentas.jasper";
 			 @SuppressWarnings("deprecation")
 			JasperReport reporte=(JasperReport)JRLoader.loadObjectFromFile(ubicacion);
 			 Map modelo =new HashMap();
