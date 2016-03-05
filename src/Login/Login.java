@@ -60,7 +60,7 @@ public class Login extends JFrame {
 	public Login() {
 		setResizable(false);
 		setTitle("-- doTerra-- Iniciar Sesion");
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 373, 167);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

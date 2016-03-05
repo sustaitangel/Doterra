@@ -2,12 +2,14 @@ package Inventario;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.HeadlessException;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLayeredPane;
 import javax.swing.border.TitledBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.UIManager;
 
@@ -20,6 +22,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.sql.ResultSet;
 
 import javax.swing.JTextField;
@@ -29,10 +34,12 @@ import Conexion.Conectar;
 import Imagenes.Img;
 
 import javax.swing.ButtonGroup;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -70,7 +77,6 @@ public class Inventario extends JFrame {
 			}
 		});
 	}
-
 	/**
 	 * Create the frame.
 	 */
@@ -211,7 +217,7 @@ public class Inventario extends JFrame {
 		rb.add(rdbtnProductosAgotados);
 		rb.add(rdbtnTodosLosRegistros);
 		
-		JButton btnExportar = new JButton("Exportar PDF");
+		JButton btnExportar = new JButton("Ver Reporte");
 		btnExportar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				JTextField hola = null;
@@ -228,7 +234,7 @@ public class Inventario extends JFrame {
 				}
 			}
 		});
-		btnExportar.setBounds(463, 30, 111, 20);
+		btnExportar.setBounds(458, 22, 115, 37);
 		layeredPane_1.add(btnExportar);
 		
 		JLayeredPane layeredPane_2 = new JLayeredPane();
