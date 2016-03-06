@@ -15,7 +15,7 @@ import Clientes.Clientes;
 import Conexion.Conectar;
 import Imagenes.Img;
 import Inventario.Inventario;
-import Login.Login;
+import Login.InSesion;
 import Productos.AltaProductos;
 import ProductosAgotados.ProductosAgotados;
 import Reportes.Reporte;
@@ -39,7 +39,7 @@ public class PanelPrincipal extends JFrame {
 	private JPanel contentPane;
 	JLabel lblHora;
 	RelojFecha relojFecha = new RelojFecha();
-	public static Login k=new Login();
+	public static InSesion k=new InSesion();
 	ProductosAgotados agotados = new ProductosAgotados();
 	Conectar conex = new Conectar();
 	java.sql.Connection con;

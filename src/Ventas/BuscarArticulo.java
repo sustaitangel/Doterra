@@ -16,11 +16,19 @@ import javax.swing.table.DefaultTableModel;
 import Conexion.Conectar;
 
 public class BuscarArticulo {
-	public void buscar(JTable tabla,String txtCodigo,DefaultTableModel modelo,JTextField txtNombreProducto,JTextField txtNombre){
+	public void buscar(int tipox,JTable tabla,String txtCodigo,DefaultTableModel modelo,JTextField txtNombreProducto,JTextField txtNombre){
 		Conectar cx=new Conectar();
 		Connection cn= cx.conexion(null);
-		String sql="SELECT clave, nombre, precio_cliente, pv  FROM productos where clave='"+txtCodigo+"'";
-		
+		String sql = null;
+		if(tipox==1){
+		 sql="SELECT clave, nombre, precio_cliente, pv  FROM productos where clave='"+txtCodigo+"'";
+		}
+		if(tipox==2){
+			 sql="SELECT clave, nombre, precio_distribuidor, pv  FROM productos where clave='"+txtCodigo+"'";
+			}
+		if(tipox==3){
+			 sql="SELECT clave, nombre, precio_gota, pv  FROM productos where clave='"+txtCodigo+"'";
+			}
 		int stok=existencia(txtCodigo);
 		
 		if(stok>=1){

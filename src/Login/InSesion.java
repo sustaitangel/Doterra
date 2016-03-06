@@ -18,6 +18,7 @@ import Imagenes.Img;
 import Principal.PanelPrincipal;
 import Principal.PanelPrincipal;
 import Principal.PanelPrincipal;
+import Principal.Principal;
 import Sqls.IniSesion;
 
 import javax.swing.JButton;
@@ -27,16 +28,17 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.RowSpec;
 
-public class Login extends JFrame {
+public class InSesion extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JPasswordField passwordField;
+	private JTextField txtUsuario;
+	private JPasswordField pswContra;
 
 	/**
 	 * Launch the application.
@@ -45,7 +47,7 @@ public class Login extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Login frame = new Login();
+					InSesion frame = new InSesion();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -57,7 +59,7 @@ public class Login extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Login() {
+	public InSesion() {
 		setResizable(false);
 		setTitle("-- doTerra-- Iniciar Sesion");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -94,29 +96,29 @@ public class Login extends JFrame {
 		lblUsuario.setForeground(new Color(34, 139, 34));
 		contentPane.add(lblUsuario, "4, 3, center, fill");
 		
-		textField = new JTextField();
-		textField.addKeyListener(new KeyAdapter() {
+		txtUsuario = new JTextField();
+		txtUsuario.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
 				char car=e.getKeyChar();
-				String vacio=passwordField.getText();
+				String vacio=pswContra.getText();
 				if(car==KeyEvent.VK_ENTER && vacio.length()==0 ){
-					JOptionPane.showMessageDialog(textField, "Escriba Contraseña");
+					JOptionPane.showMessageDialog(txtUsuario, "Escriba Contraseña");
 										
 				}
 				if(car==KeyEvent.VK_ENTER && vacio.length()!=0) {
 						IniSesion ini=new IniSesion();
-						ini.iniSecion(textField, passwordField);
+						ini.iniSecion(txtUsuario, pswContra);
 						System.out.println("hola"+IniSesion.conta);
-						Login.this.dispose();
+						InSesion.this.dispose();
 						if(IniSesion.conta>=5){
 						
 					}
 				}
 			}
 		});
-		contentPane.add(textField, "6, 3, 3, 1, fill, top");
-		textField.setColumns(10);
+		contentPane.add(txtUsuario, "6, 3, 3, 1, fill, top");
+		txtUsuario.setColumns(10);
 		
 		JLabel lblContrasena = new JLabel("Contrase\u00F1a:");
 		lblContrasena.setForeground(new Color(34, 139, 34));
@@ -130,7 +132,7 @@ public class Login extends JFrame {
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Login.this.dispose();
+				InSesion.this.dispose();
 			}
 		});
 		contentPane.add(btnCancelar, "4, 7, 3, 1, fill, fill");
@@ -138,30 +140,51 @@ public class Login extends JFrame {
 		JButton btnEntrar = new JButton("Entrar");
 		btnEntrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String pass=new String(passwordField.getPassword());
+
+				String pass=new String(pswContra.getPassword());
 				if(pass.length()==0){
-					JOptionPane.showMessageDialog(textField, "Escriba Contraseña");
+					JOptionPane.showMessageDialog(txtUsuario, "Escriba Contraseña");
 				}else{
-				IniSesion ini=new IniSesion();
-				ini.iniSecion(textField, passwordField);
-				
-				System.out.println("hola"+IniSesion.conta);
-				}
+					Iniciar ini=new Iniciar();
+					ini.iniSecion(txtUsuario, pswContra);
+
+					System.out.println("hola"+Iniciar.conta);
+					if(Iniciar.conta>=5){
+						
+						JOptionPane.showMessageDialog(txtUsuario,"Ha Excedido el número de intentos");
+						Principal x=new Principal();
+						x.bloqueo();
+	}
+}
 			}
 		});
 		contentPane.add(btnEntrar, "8, 7, fill, fill");
 		
-		passwordField = new JPasswordField();
-		passwordField.addKeyListener(new KeyAdapter() {
+		pswContra = new JPasswordField();
+		pswContra.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
 				char car=e.getKeyChar();
 				if(car==KeyEvent.VK_ENTER){
-					IniSesion n=new IniSesion();
-					n.iniSecion(textField, passwordField);
+
+					String pass=new String(pswContra.getPassword());
+					if(pass.length()==0){
+						JOptionPane.showMessageDialog(txtUsuario, "Escriba Contraseña");
+					}else{
+						Iniciar ini=new Iniciar();
+						ini.iniSecion(txtUsuario, pswContra);
+
+						System.out.println("hola"+Iniciar.conta);
+						if(Iniciar.conta>=5){
+								
+							JOptionPane.showMessageDialog(txtUsuario,"Ha Excedido el número de intentos");
+							Principal x=new Principal();
+							x.bloqueo();
+	}
+}
 				}
 			}
 		});
-		contentPane.add(passwordField, "6, 5, 3, 1, fill, top");
+		contentPane.add(pswContra, "6, 5, 3, 1, fill, top");
 	}
 }

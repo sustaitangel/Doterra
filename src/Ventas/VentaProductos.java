@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 
 import java.awt.Font;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JScrollPane;
@@ -34,21 +35,28 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.text.DecimalFormat;
 import java.util.Calendar;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+import javax.swing.JRadioButton;
 
 public class VentaProductos extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField txtClave;
 	private JTextField txtImporte;
 	private JTextField txtTotalpv;
 	private JTextField txtTotal;
-	private JTextField txtCliente;
 	private JTable table;
+	public static String tp;
 	private static   String matriz[][]={};
-	private static   String vector[]={"Código","Nombre","Precio Cliente","PV","Cantidad"};
+	private static   String vector[]={"Código","Nombre","Tipo de Venta","PV","Cantidad"};
 	public static   DefaultTableModel modelo1= new DefaultTableModel(matriz,vector);
 	public JLabel lblDt = new JLabel();
 	RelojFecha relojFecha = new RelojFecha();
+	public JTextField txtClave = new JTextField();
+	private ButtonGroup rb = new ButtonGroup();
+	public static JTextField txtCliente = new JTextField();
+	public int tipox;
 
 	/**
 	 * Launch the application.
@@ -72,7 +80,7 @@ public class VentaProductos extends JFrame {
 	public VentaProductos() {
 		setTitle("--doTerra--Venta de productos--");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 617, 470);
+		setBounds(100, 100, 617, 528);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -80,7 +88,7 @@ public class VentaProductos extends JFrame {
 		
 		JLayeredPane layeredPane = new JLayeredPane();
 		layeredPane.setBorder(new TitledBorder(null, "Venta de Productos", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(128, 0, 128)));
-		layeredPane.setBounds(10, 11, 581, 410);
+		layeredPane.setBounds(10, 11, 581, 467);
 		contentPane.add(layeredPane);
 		
 		JLabel lblClave = new JLabel("Clave :");
@@ -88,17 +96,21 @@ public class VentaProductos extends JFrame {
 		lblClave.setForeground(new Color(34, 139, 34));
 		lblClave.setBounds(22, 30, 46, 14);
 		layeredPane.add(lblClave);
+		txtClave.setEnabled(false);
 		
-		txtClave = new JTextField();
+		
 		txtClave.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
 				char ec=e.getKeyChar();
 				String codigo=null;
 				if(ec==KeyEvent.VK_ENTER){
+					String vector[]={"Código","Nombre",tp,"PV","Cantidad"};
+					DefaultTableModel modelo1= new DefaultTableModel(matriz,vector);
+					table.setModel(modelo1);
 					BuscarArticulo buscar=new BuscarArticulo();
 					codigo=txtClave.getText();				
-					buscar.buscar(table, codigo, modelo1,txtClave,txtClave);
+					buscar.buscar(tipox,table, codigo, modelo1,txtClave,txtClave);
 					suma();
 				}
 			}
@@ -169,7 +181,7 @@ public class VentaProductos extends JFrame {
 				String folio1=lblDt.getText();
 				String fecha1=cal.get(Calendar.YEAR)+"-"+mes+"-"+cal.get(Calendar.DATE);
 				GuardarVenta ob= new GuardarVenta();
-				ob.guardarventa(folio1, txtImporte, txtCliente, txtTotalpv, txtTotal, fecha1);
+				ob.guardarventa( folio1, txtImporte, txtCliente, txtTotalpv, txtTotal, fecha1);
 				ob.detalleVenta(modelo1, table, fecha1, folio1,txtCliente);
 				ob.vaciar(table);
 				limpiar();
@@ -177,17 +189,30 @@ public class VentaProductos extends JFrame {
 				
 			}
 		});
-		btnTerminarventa.setBounds(225, 359, 79, 40);
+		btnTerminarventa.setBounds(225, 416, 79, 40);
 		layeredPane.add(btnTerminarventa);
 		
 		Img n15 = new Img();
 		JButton btnCancelar = new JButton(n15.CancelarVenta());
-		btnCancelar.setBounds(318, 359, 79, 40);
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				BuscarArticulo n=new BuscarArticulo();
+				int x=table.getSelectedColumn();
+				int y=table.getSelectedRow();
+				if(table.isCellSelected(y, x)){
+					n.quitarFila(table, modelo1);
+					suma();
+				}else{
+					JOptionPane.showMessageDialog(null, "Seleccione Artículo");
+				}
+			}
+		});
+		btnCancelar.setBounds(321, 416, 79, 40);
 		layeredPane.add(btnCancelar);
 		
 		JLayeredPane layeredPane_1 = new JLayeredPane();
 		layeredPane_1.setBorder(new TitledBorder(null, "Carrito de Compras", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(128, 0, 128)));
-		layeredPane_1.setBounds(10, 122, 561, 226);
+		layeredPane_1.setBounds(10, 184, 561, 226);
 		layeredPane.add(layeredPane_1);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -218,12 +243,14 @@ public class VentaProductos extends JFrame {
 		layeredPane.add(lblCliente);
 		
 		txtCliente = new JTextField();
+		txtCliente.setEnabled(false);
 		txtCliente.setBounds(78, 54, 130, 20);
 		layeredPane.add(txtCliente);
 		txtCliente.setColumns(10);
 		
 		Img n40 = new Img();
 		JButton btnVerClientes = new JButton(n40.btnVerClientes());
+		btnVerClientes.setEnabled(false);
 		btnVerClientes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Clientes ob20 =  new Clientes();
@@ -231,7 +258,7 @@ public class VentaProductos extends JFrame {
 				ob20.setLocation(500,100);
 			}
 		});
-		btnVerClientes.setBounds(218, 30, 86, 19);
+		btnVerClientes.setBounds(218, 55, 86, 19);
 		layeredPane.add(btnVerClientes);
 		
 		JLabel lblFecha = new JLabel("");
@@ -240,6 +267,61 @@ public class VentaProductos extends JFrame {
 		lblFecha.setBounds(58, 97, 150, 14);
 		relojFecha.fecha(lblFecha);
 		layeredPane.add(lblFecha);
+		
+		JRadioButton rdbCliente = new JRadioButton("Venta Cliente");
+		rdbCliente.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				txtClave.setEnabled(true);
+				txtCliente.setEnabled(true);
+				btnVerClientes.setEnabled(true);
+				tp="Precio Cliente";
+				String vector[]={"Código","Nombre",tp,"PV","Cantidad"};
+				DefaultTableModel modelo1= new DefaultTableModel(matriz,vector);
+				table.setModel(modelo1);
+				tipox=1;
+			}
+		});
+		rdbCliente.setBounds(22, 139, 138, 23);
+		layeredPane.add(rdbCliente);
+		
+		JRadioButton rdbDistribuidor = new JRadioButton("Venta Distribuidor");
+		rdbDistribuidor.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				txtClave.setEnabled(true);
+				txtCliente.setEnabled(true);
+				btnVerClientes.setEnabled(true);
+				tp="Precio Distribuidor";
+				String vector[]={"Código","Nombre",tp,"PV","Cantidad"};
+				DefaultTableModel modelo1= new DefaultTableModel(matriz,vector);
+				table.setModel(modelo1);
+				tipox=2;
+			}
+		});
+		rdbDistribuidor.setBounds(162, 139, 142, 23);
+		layeredPane.add(rdbDistribuidor);
+		
+		JRadioButton rdbGota = new JRadioButton("Venta Gota");
+		rdbGota.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				txtClave.setEnabled(true);
+				txtCliente.setEnabled(true);
+				btnVerClientes.setEnabled(true);
+				tp="Precio gota";
+				String vector[]={"Código","Nombre",tp,"PV","Cantidad"};
+				DefaultTableModel modelo1= new DefaultTableModel(matriz,vector);
+				table.setModel(modelo1);
+				tipox=3;
+			}
+		});
+		rdbGota.setBounds(306, 139, 109, 23);
+		layeredPane.add(rdbGota);
+		
+		rb.add(rdbGota);
+		rb.add(rdbDistribuidor);
+		rb.add(rdbCliente);
 	}
 	public void suma(){
 		int j=table.getRowCount()-1;

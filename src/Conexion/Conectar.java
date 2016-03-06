@@ -19,7 +19,7 @@ public class Conectar {
 	      try {  
 	           //Cargamos el Driver MySQL
 	           Class.forName("org.gjt.mm.mysql.Driver");
-	           conect = DriverManager.getConnection("jdbc:mysql://localhost/doterra","root","sistemas");
+	           conect = DriverManager.getConnection("jdbc:mysql://localhost/doterra","root","noentrar");
 	        } catch (Exception e) {
 	            JOptionPane.showMessageDialog(hola, "Error"+e);
 	        }
@@ -30,7 +30,7 @@ public class Conectar {
 			ArrayList listipos = new ArrayList();
 			String sentencia="select descripcion from perfil";
 			try{
-				Connection conexion=DriverManager.getConnection("jdbc:mysql://localhost/doterra","root","sistemas");
+				Connection conexion=DriverManager.getConnection("jdbc:mysql://localhost/doterra","root","noentrar");
 				Statement comando=conexion.createStatement();
 			
 				ResultSet registro = comando.executeQuery(sentencia);

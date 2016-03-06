@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 import Clientes.Clientes;
 import Imagenes.Img;
 import Inventario.Inventario;
-import Login.Login;
+import Login.InSesion;
 import Productos.AltaProductos;
 import Reportes.Reporte;
 import Sqls.IniSesion;
@@ -27,7 +27,7 @@ import java.awt.event.ActionListener;
 public class PanelPrincipal1 extends JFrame {
 
 	private JPanel contentPane;
-	public static Login k=new Login();
+	public static InSesion k=new InSesion();
 	JLabel lblHora;
 	RelojFecha relojFecha = new RelojFecha();
 	/**

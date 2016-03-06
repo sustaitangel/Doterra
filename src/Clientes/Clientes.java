@@ -23,7 +23,9 @@ import javax.swing.JButton;
 import Conexion.Conectar;
 import Imagenes.Img;
 import Productos.AgregarProducto;
+import Ventas.VentaProductos;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 import javax.swing.Icon;
 import javax.swing.JScrollPane;
@@ -33,6 +35,9 @@ import java.awt.event.ActionEvent;
 import java.sql.ResultSet;
 
 import javax.swing.JTable;
+
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Clientes extends JFrame {
 
@@ -46,6 +51,7 @@ public class Clientes extends JFrame {
 	private JTextField txtBuscar;
 	private JTable tableClientes;
 	private JTable tableClientes_1;
+	public static String IdCliente;
 	java.sql.Connection con;
 	Conectar conex = new Conectar();
 	java.sql.Statement list;
@@ -89,11 +95,11 @@ public class Clientes extends JFrame {
 			con = conex.conexion(hola);
 			String[] titulos = {"ID","Nombre","A.paterno","A.materno","Email","Telefono"};
 			if (buscar.equals("")) {
-				sql = "select id_cliente,nombre,a_paterno,a_materno,email,telefono " +
+				sql = "select id ,nombre,a_paterno,a_materno,email,telefono " +
 						"from clientes as c ";
 				
 			} else {
-				sql = "select id_cliente,nombre,a_paterno,a_materno,email,telefono " +
+				sql = "select id ,nombre,a_paterno,a_materno,email,telefono " +
 						"from clientes as c " +
 						"where nombre like '%" + buscar + "%'" +
 						" OR  a_paterno LIKE '%" + buscar + "%'";
@@ -105,7 +111,7 @@ public class Clientes extends JFrame {
 			rs = list.executeQuery(sql);
 			
 			while (rs.next()) {
-				model.addRow(new Object[] {rs.getString("id_cliente"),rs.getString("nombre"),rs.getString("a_paterno")
+				model.addRow(new Object[] {rs.getString("id"),rs.getString("nombre"),rs.getString("a_paterno")
 					,rs.getString("a_materno"),rs.getString("email"),rs.getString("telefono")});
 			}
 		} catch (Exception e) {
@@ -197,6 +203,18 @@ public class Clientes extends JFrame {
 			
 		};;
 		tableClientes_1 = new JTable();
+		tableClientes_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int selected;
+				selected=tableClientes_1.getSelectedRow(); 
+				String Idclient;
+				Idclient=tableClientes_1.getValueAt(selected, 0).toString();
+				IdCliente=Idclient;
+				VentaProductos.txtCliente.setText(IdCliente);
+				Clientes.this.dispose();
+			}
+		});
 		tableClientes_1.setCellSelectionEnabled(true);
 		tableClientes_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		scrollPane.setColumnHeaderView(tableClientes_1);
