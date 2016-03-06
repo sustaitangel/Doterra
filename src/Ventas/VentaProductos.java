@@ -49,7 +49,7 @@ public class VentaProductos extends JFrame {
 	private JTable table;
 	public static String tp;
 	private static   String matriz[][]={};
-	private static   String vector[]={"Código","Nombre","Tipo de Venta","PV","Cantidad"};
+	private static   String vector[]={"Código","Nombre","Precio","PV","Cantidad"};
 	public static   DefaultTableModel modelo1= new DefaultTableModel(matriz,vector);
 	public JLabel lblDt = new JLabel();
 	RelojFecha relojFecha = new RelojFecha();
@@ -105,14 +105,10 @@ public class VentaProductos extends JFrame {
 				char ec=e.getKeyChar();
 				String codigo=null;
 				if(ec==KeyEvent.VK_ENTER){
-					String vector[]={"Código","Nombre",tp,"PV","Cantidad"};
-					DefaultTableModel modelo1= new DefaultTableModel(matriz,vector);
-					table.setModel(modelo1);
 					BuscarArticulo buscar=new BuscarArticulo();
 					codigo=txtClave.getText();				
 					buscar.buscar(tipox,table, codigo, modelo1,txtClave,txtClave);
 					suma();
-					limpiar();
 				}
 			}
 		});
@@ -276,10 +272,6 @@ public class VentaProductos extends JFrame {
 				txtClave.setEnabled(true);
 				txtCliente.setEnabled(true);
 				btnVerClientes.setEnabled(true);
-				tp="Precio Cliente";
-				String vector[]={"Código","Nombre",tp,"PV","Cantidad"};
-				DefaultTableModel modelo1= new DefaultTableModel(matriz,vector);
-				table.setModel(modelo1);
 				tipox=1;
 			}
 		});
@@ -293,10 +285,6 @@ public class VentaProductos extends JFrame {
 				txtClave.setEnabled(true);
 				txtCliente.setEnabled(true);
 				btnVerClientes.setEnabled(true);
-				tp="Precio Distribuidor";
-				String vector[]={"Código","Nombre",tp,"PV","Cantidad"};
-				DefaultTableModel modelo1= new DefaultTableModel(matriz,vector);
-				table.setModel(modelo1);
 				tipox=2;
 			}
 		});
@@ -309,11 +297,7 @@ public class VentaProductos extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				txtClave.setEnabled(true);
 				txtCliente.setEnabled(true);
-				btnVerClientes.setEnabled(true);
-				tp="Precio gota";
-				String vector[]={"Código","Nombre",tp,"PV","Cantidad"};
-				DefaultTableModel modelo1= new DefaultTableModel(matriz,vector);
-				table.setModel(modelo1);
+				btnVerClientes.setEnabled(true);				
 				tipox=3;
 			}
 		});
@@ -324,11 +308,22 @@ public class VentaProductos extends JFrame {
 		rb.add(rdbDistribuidor);
 		rb.add(rdbCliente);
 	}
+	public void limpiar(){
+		txtTotal.setText("0.0");
+		txtImporte.setText("");
+		txtTotalpv.setText("0.0");
+		txtCliente.setText("");
+		Generador ob= new Generador();
+		String folio= ob.folio();
+		lblDt.setText(folio);
+	}
 	public void suma(){
 		int j=table.getRowCount()-1;
 		if(j>=0){
 			float n2=0;
 			float n2x=0;
+			float m2=0;
+			float m2x=0;
 			for(int i=0;i<=j;i++){
 				float n= Float.parseFloat(table.getValueAt(i, 2).toString());
 				float cantidad=Integer.parseInt(table.getValueAt(i, 4).toString());
@@ -340,38 +335,27 @@ public class VentaProductos extends JFrame {
 				formateador.format(n2);
 				
 				n2x=n2x+nx;
-				txtTotal.setText(String.valueOf(formateador1.format(n2x)));
-			}
-			float n3=0;
-			float n2x3=0;
-			for(int i=0;i<=j;i++){
-				float n12= Float.parseFloat(table.getValueAt(i, 3).toString());
-				float cantidad=Integer.parseInt(table.getValueAt(i, 4).toString());
-				float n1=n12*cantidad;
-				float nx=n12= Float.parseFloat(table.getValueAt(i, 3).toString());
-				n3=n3+n1;
-				DecimalFormat formateador = new DecimalFormat(".##");
-				DecimalFormat formateador1 = new DecimalFormat(".##");
-				formateador.format(n2);
+				txtTotal.setText(String.valueOf(formateador1.format(n2x)));			
 				
-				n2x3=n2x3+nx;
-				txtTotalpv.setText(String.valueOf(formateador1.format(n2x3)));
-			}
+				float m= Float.parseFloat(table.getValueAt(i, 3).toString());
+				float can=Integer.parseInt(table.getValueAt(i, 4).toString());
+				float m1=m*can;
+				float mx=m= Float.parseFloat(table.getValueAt(i, 3).toString());
+				m2=m2+m1;
+				DecimalFormat forma = new DecimalFormat(".##");
+				DecimalFormat forma1 = new DecimalFormat(".##");
+				forma.format(m2);
+				
+				m2x=m2x+mx;
+				txtTotalpv.setText(String.valueOf(forma1.format(m2x)));
+			}		
 		}else{
 			txtTotal.setText("0.0");
 			//txtSubtotal.setText("0.0");
 			txtImporte.setText("");
-			
+			txtTotalpv.setText("0.0");
 			//txtCambio.setText("");
 		}
 	}
-	public void limpiar(){
-		txtTotal.setText("0.0");
-		txtImporte.setText("");
-		txtTotalpv.setText("0.0");
-		txtCliente.setText("");
-		Generador ob= new Generador();
-		String folio= ob.folio();
-		lblDt.setText(folio);
-	}
+	
 }
