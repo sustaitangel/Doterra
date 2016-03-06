@@ -112,6 +112,7 @@ public class VentaProductos extends JFrame {
 					codigo=txtClave.getText();				
 					buscar.buscar(tipox,table, codigo, modelo1,txtClave,txtClave);
 					suma();
+					limpiar();
 				}
 			}
 		});
