@@ -16,6 +16,7 @@ import Conexion.Conectar;
 import Imagenes.Img;
 import Inventario.Inventario;
 import Login.InSesion;
+import Login.Iniciar;
 import Productos.AltaProductos;
 import ProductosAgotados.ProductosAgotados;
 import Reportes.Reporte;
@@ -189,7 +190,7 @@ public class PanelPrincipal extends JFrame {
 		
 		JLabel lblUsuario = new JLabel();
 		lblUsuario.setForeground(new Color(34, 139, 34));
-		lblUsuario.setText(IniSesion.loger);
+		lblUsuario.setText(Iniciar.loger);
 		lblUsuario.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblUsuario.setBounds(223, 335, 220, 26);
 		contentPane.add(lblUsuario);
