@@ -51,7 +51,7 @@ public class PanelPrincipal1 extends JFrame {
 	 * Create the frame.
 	 */
 	public PanelPrincipal1() {
-		setTitle("-- doTerra - Equipo Fundador Mexico -- ");
+		setTitle("-- Vive doTerra - Vive doTERRA - Vive Sanamente , Vive doTERRA --");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 625, 411);
 		contentPane = new JPanel();

@@ -41,6 +41,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JRadioButton;
+import javax.swing.UIManager;
 
 public class VentaProductos extends JFrame {
 
@@ -155,6 +156,10 @@ public class VentaProductos extends JFrame {
 		layeredPane.add(lblTotalPv);
 		
 		txtTotalpv = new JTextField();
+		txtTotalpv.setFont(new Font("Tahoma", Font.BOLD, 11));
+		txtTotalpv.setForeground(Color.RED);
+		txtTotalpv.setEditable(false);
+		txtTotalpv.setBackground(UIManager.getColor("Button.background"));
 		txtTotalpv.setBounds(424, 54, 86, 20);
 		layeredPane.add(txtTotalpv);
 		txtTotalpv.setColumns(10);
@@ -166,6 +171,9 @@ public class VentaProductos extends JFrame {
 		layeredPane.add(lblTotal);
 		
 		txtTotal = new JTextField();
+		txtTotal.setFont(new Font("Tahoma", Font.BOLD, 11));
+		txtTotal.setForeground(Color.RED);
+		txtTotal.setEditable(false);
 		txtTotal.setBounds(424, 78, 86, 20);
 		layeredPane.add(txtTotal);
 		txtTotal.setColumns(10);

@@ -66,7 +66,7 @@ public class PanelPrincipal extends JFrame {
 	 */
 	public PanelPrincipal() throws SQLException {
 		setResizable(false);
-		setTitle("-- doTerra - Equipo Fundador Mexico -- ");
+		setTitle("-- Vive doTerra - Vive doTERRA - Vive Sanamente , Vive doTERRA --");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 625, 405);
 		contentPane = new JPanel();

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TiquetVent" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f2f98cb0-5a3a-4e3f-9d9a-74cd6f722c7f">
 	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="208"/>
-	<property name="ireport.y" value="48"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="96"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -41,14 +41,10 @@
      ventas.`importe` AS ventas_importe,
      ventas.`total_pv` AS ventas_total_pv,
      ventas.`fecha` AS ventas_fecha,
-     ventas.`total` AS ventas_total,
-     clientes.`id_cliente` AS clientes_id_cliente,
-     clientes.`id` AS clientes_id,
-     clientes.`nombre` AS clientes_nombre
+     ventas.`total` AS ventas_total
 FROM
      `ventas_has_productos` ventas_has_productos,
-     `ventas` ventas,
-     `clientes` clientes]]>
+     `ventas` ventas]]>
 		</queryString>
 		<field name="ventas_has_productos_clave" class="java.lang.Long"/>
 		<field name="ventas_has_productos_folio" class="java.lang.String"/>
@@ -66,9 +62,6 @@ FROM
 		<field name="ventas_total_pv" class="java.lang.Float"/>
 		<field name="ventas_fecha" class="java.sql.Date"/>
 		<field name="ventas_total" class="java.lang.Float"/>
-		<field name="clientes_id_cliente" class="java.lang.Long"/>
-		<field name="clientes_id" class="java.lang.Long"/>
-		<field name="clientes_nombre" class="java.lang.String"/>
 		<group name="ventas_has_productos_clave">
 			<groupExpression><![CDATA[$F{ventas_has_productos_clave}]]></groupExpression>
 		</group>
@@ -94,14 +87,18 @@ FROM
      ventas.`total` AS ventas_total,
      clientes.`id_cliente` AS clientes_id_cliente,
      clientes.`id` AS clientes_id,
-     clientes.`nombre` AS clientes_nombre
+     clientes.`nombre` AS clientes_nombre,
+     clientes.`a_paterno` AS clientes_a_paterno,
+     clientes.`a_materno` AS clientes_a_materno,
+     clientes.`email` AS clientes_email,
+     clientes.`telefono` AS clientes_telefono
 FROM
      `ventas_has_productos` ventas_has_productos,
      `ventas` ventas,
      `clientes` clientes
-WHERE
+where
      ventas_has_productos.`folio` = $P{folio}
-     and ventas.`folio` = $P{folio}]]>
+ and ventas.`folio` = $P{folio}]]>
 	</queryString>
 	<field name="ventas_has_productos_clave" class="java.lang.Long"/>
 	<field name="ventas_has_productos_folio" class="java.lang.String"/>
@@ -122,11 +119,15 @@ WHERE
 	<field name="clientes_id_cliente" class="java.lang.Long"/>
 	<field name="clientes_id" class="java.lang.Long"/>
 	<field name="clientes_nombre" class="java.lang.String"/>
+	<field name="clientes_a_paterno" class="java.lang.String"/>
+	<field name="clientes_a_materno" class="java.lang.String"/>
+	<field name="clientes_email" class="java.lang.String"/>
+	<field name="clientes_telefono" class="java.lang.Long"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="97" splitType="Stretch">
+		<band height="100" splitType="Stretch">
 			<image>
 				<reportElement uuid="feb79f05-f1ba-47ba-ac96-0b89066c86fe" x="375" y="0" width="180" height="79"/>
 				<imageExpression><![CDATA["C:\\Users\\JAIRO\\Desktop\\progama1.0\\logo_fondo.png"]]></imageExpression>
@@ -174,7 +175,7 @@ WHERE
 		</band>
 	</title>
 	<columnHeader>
-		<band height="46" splitType="Stretch">
+		<band height="20" splitType="Stretch">
 			<staticText>
 				<reportElement uuid="3f7021d5-27f6-4dee-a1c6-58838e179ee9" style="table" mode="Opaque" x="55" y="5" width="126" height="15" forecolor="#990099" backcolor="#E2E2E2"/>
 				<textElement textAlignment="Center">
@@ -196,25 +197,26 @@ WHERE
 				</textElement>
 				<text><![CDATA[Precio]]></text>
 			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
 			<textField>
-				<reportElement uuid="84f4d066-26bc-4f6f-b188-67c52bcdd974" style="table" mode="Opaque" x="55" y="20" width="126" height="16"/>
+				<reportElement uuid="84f4d066-26bc-4f6f-b188-67c52bcdd974" style="table" mode="Opaque" x="55" y="0" width="126" height="16"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{ventas_has_productos_nombre}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="07b5da8a-c900-46cf-8eaf-987124739566" style="table" x="181" y="20" width="85" height="16"/>
+				<reportElement uuid="07b5da8a-c900-46cf-8eaf-987124739566" style="table" x="181" y="0" width="85" height="16"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{ventas_has_productos_cantidad}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="7748e8af-3da8-4f03-9a20-eba550cb81e0" style="table" x="266" y="20" width="85" height="16"/>
+				<reportElement uuid="7748e8af-3da8-4f03-9a20-eba550cb81e0" style="table" x="266" y="0" width="85" height="16"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{ventas_has_productos_precio}]]></textFieldExpression>
 			</textField>
 		</band>
-	</columnHeader>
-	<detail>
-		<band height="17" splitType="Stretch"/>
 	</detail>
 	<columnFooter>
 		<band height="67" splitType="Stretch">
@@ -226,7 +228,7 @@ WHERE
 				<text><![CDATA[Importe]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="a2755e15-8a2f-4a04-b48c-ed9fb1e3b2b1" style="table" x="379" y="36" width="55" height="18"/>
+				<reportElement uuid="a2755e15-8a2f-4a04-b48c-ed9fb1e3b2b1" style="table" x="379" y="35" width="55" height="18"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{ventas_importe}]]></textFieldExpression>
 			</textField>
@@ -238,7 +240,7 @@ WHERE
 				<text><![CDATA[Total PV]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="030ab496-ef39-4a79-a051-1db61d10db47" style="table" x="434" y="36" width="55" height="18"/>
+				<reportElement uuid="030ab496-ef39-4a79-a051-1db61d10db47" style="table" x="434" y="35" width="55" height="18"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{ventas_total_pv}]]></textFieldExpression>
 			</textField>
@@ -250,7 +252,7 @@ WHERE
 				<text><![CDATA[TOTAL]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="f26e5126-fe28-4afc-8b4e-f05b1e569d60" style="table" x="489" y="36" width="55" height="18"/>
+				<reportElement uuid="f26e5126-fe28-4afc-8b4e-f05b1e569d60" style="table" x="489" y="35" width="55" height="18"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{ventas_total}]]></textFieldExpression>
 			</textField>
