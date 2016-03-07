@@ -68,7 +68,7 @@ public class PanelPrincipal extends JFrame {
 		setResizable(false);
 		setTitle("-- doTerra - Equipo Fundador Mexico -- ");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 625, 428);
+		setBounds(100, 100, 625, 405);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

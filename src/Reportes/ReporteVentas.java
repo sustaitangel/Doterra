@@ -32,7 +32,7 @@ import com.toedter.calendar.JDayChooser;
 public class ReporteVentas extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField txtFolioVenta;
+	private JTextField txtFolio;
 
 	/**
 	 * Launch the application.
@@ -108,13 +108,20 @@ public class ReporteVentas extends JFrame {
 		lblFolioVenta.setForeground(new Color(34, 139, 34));
 		lblFolioVenta.setFont(new Font("Tahoma", Font.BOLD, 13));
 		
-		txtFolioVenta = new JTextField();
-		txtFolioVenta.setBounds(108, 39, 115, 20);
-		layeredPane_2.add(txtFolioVenta);
-		txtFolioVenta.setColumns(10);
+		txtFolio = new JTextField();
+		txtFolio.setBounds(108, 39, 115, 20);
+		layeredPane_2.add(txtFolio);
+		txtFolio.setColumns(10);
 		
 		Img n26 = new Img();
 		JButton btnDetalleVenta = new JButton(n26.GenerarReporte());
+		btnDetalleVenta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String folio=txtFolio.getText();
+				GeneradordeReportes c= new GeneradordeReportes();
+				c.ventaFolio(folio);
+			}
+		});
 		btnDetalleVenta.setBounds(233, 38, 82, 28);
 		layeredPane_2.add(btnDetalleVenta);
 	}

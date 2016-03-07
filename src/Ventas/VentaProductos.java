@@ -25,6 +25,8 @@ import javax.swing.JButton;
 import Clientes.Clientes;
 import Imagenes.Img;
 import Principal.RelojFecha;
+import Reporte.GeneradordeReportes;
+import Reporte.tickets;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -182,7 +184,8 @@ public class VentaProductos extends JFrame {
 				ob.detalleVenta(modelo1, table, fecha1, folio1,txtCliente);
 				ob.vaciar(table);
 				limpiar();
-				
+				tickets n= new tickets();
+				n.ticket(folio1);
 				
 			}
 		});
@@ -266,6 +269,8 @@ public class VentaProductos extends JFrame {
 		layeredPane.add(lblFecha);
 		
 		JRadioButton rdbCliente = new JRadioButton("Venta Cliente");
+		rdbCliente.setFont(new Font("Tahoma", Font.BOLD, 11));
+		rdbCliente.setForeground(new Color(34, 139, 34));
 		rdbCliente.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -279,6 +284,8 @@ public class VentaProductos extends JFrame {
 		layeredPane.add(rdbCliente);
 		
 		JRadioButton rdbDistribuidor = new JRadioButton("Venta Distribuidor");
+		rdbDistribuidor.setForeground(new Color(34, 139, 34));
+		rdbDistribuidor.setFont(new Font("Tahoma", Font.BOLD, 11));
 		rdbDistribuidor.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -292,6 +299,8 @@ public class VentaProductos extends JFrame {
 		layeredPane.add(rdbDistribuidor);
 		
 		JRadioButton rdbGota = new JRadioButton("Venta Gota");
+		rdbGota.setFont(new Font("Tahoma", Font.BOLD, 11));
+		rdbGota.setForeground(new Color(34, 139, 34));
 		rdbGota.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

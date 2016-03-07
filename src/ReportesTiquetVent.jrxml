@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TiquetVent" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f2f98cb0-5a3a-4e3f-9d9a-74cd6f722c7f">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="208"/>
+	<property name="ireport.y" value="48"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="doterra3" uuid="ad688434-1186-4f92-920c-614428c9f787">
+		<queryString>
+			<![CDATA[SELECT
+     ventas_has_productos.`clave` AS ventas_has_productos_clave,
+     ventas_has_productos.`folio` AS ventas_has_productos_folio,
+     ventas_has_productos.`fecha` AS ventas_has_productos_fecha,
+     ventas_has_productos.`nombre` AS ventas_has_productos_nombre,
+     ventas_has_productos.`precio` AS ventas_has_productos_precio,
+     ventas_has_productos.`total_pv` AS ventas_has_productos_total_pv,
+     ventas_has_productos.`cantidad` AS ventas_has_productos_cantidad,
+     ventas_has_productos.`cliente` AS ventas_has_productos_cliente,
+     ventas_has_productos.`id` AS ventas_has_productos_id,
+     ventas.`id_venta` AS ventas_id_venta,
+     ventas.`folio` AS ventas_folio,
+     ventas.`cliente` AS ventas_cliente,
+     ventas.`importe` AS ventas_importe,
+     ventas.`total_pv` AS ventas_total_pv,
+     ventas.`fecha` AS ventas_fecha,
+     ventas.`total` AS ventas_total,
+     clientes.`id_cliente` AS clientes_id_cliente,
+     clientes.`id` AS clientes_id,
+     clientes.`nombre` AS clientes_nombre
+FROM
+     `ventas_has_productos` ventas_has_productos,
+     `ventas` ventas,
+     `clientes` clientes]]>
+		</queryString>
+		<field name="ventas_has_productos_clave" class="java.lang.Long"/>
+		<field name="ventas_has_productos_folio" class="java.lang.String"/>
+		<field name="ventas_has_productos_fecha" class="java.sql.Date"/>
+		<field name="ventas_has_productos_nombre" class="java.lang.String"/>
+		<field name="ventas_has_productos_precio" class="java.lang.Float"/>
+		<field name="ventas_has_productos_total_pv" class="java.lang.Float"/>
+		<field name="ventas_has_productos_cantidad" class="java.lang.Integer"/>
+		<field name="ventas_has_productos_cliente" class="java.lang.String"/>
+		<field name="ventas_has_productos_id" class="java.lang.Integer"/>
+		<field name="ventas_id_venta" class="java.lang.Integer"/>
+		<field name="ventas_folio" class="java.lang.String"/>
+		<field name="ventas_cliente" class="java.lang.String"/>
+		<field name="ventas_importe" class="java.lang.Float"/>
+		<field name="ventas_total_pv" class="java.lang.Float"/>
+		<field name="ventas_fecha" class="java.sql.Date"/>
+		<field name="ventas_total" class="java.lang.Float"/>
+		<field name="clientes_id_cliente" class="java.lang.Long"/>
+		<field name="clientes_id" class="java.lang.Long"/>
+		<field name="clientes_nombre" class="java.lang.String"/>
+		<group name="ventas_has_productos_clave">
+			<groupExpression><![CDATA[$F{ventas_has_productos_clave}]]></groupExpression>
+		</group>
+	</subDataset>
+	<parameter name="folio" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     ventas_has_productos.`clave` AS ventas_has_productos_clave,
+     ventas_has_productos.`folio` AS ventas_has_productos_folio,
+     ventas_has_productos.`fecha` AS ventas_has_productos_fecha,
+     ventas_has_productos.`nombre` AS ventas_has_productos_nombre,
+     ventas_has_productos.`precio` AS ventas_has_productos_precio,
+     ventas_has_productos.`total_pv` AS ventas_has_productos_total_pv,
+     ventas_has_productos.`cantidad` AS ventas_has_productos_cantidad,
+     ventas_has_productos.`cliente` AS ventas_has_productos_cliente,
+     ventas_has_productos.`id` AS ventas_has_productos_id,
+     ventas.`id_venta` AS ventas_id_venta,
+     ventas.`folio` AS ventas_folio,
+     ventas.`cliente` AS ventas_cliente,
+     ventas.`importe` AS ventas_importe,
+     ventas.`total_pv` AS ventas_total_pv,
+     ventas.`fecha` AS ventas_fecha,
+     ventas.`total` AS ventas_total,
+     clientes.`id_cliente` AS clientes_id_cliente,
+     clientes.`id` AS clientes_id,
+     clientes.`nombre` AS clientes_nombre
+FROM
+     `ventas_has_productos` ventas_has_productos,
+     `ventas` ventas,
+     `clientes` clientes
+WHERE
+     ventas_has_productos.`folio` = $P{folio}
+     and ventas.`folio` = $P{folio}]]>
+	</queryString>
+	<field name="ventas_has_productos_clave" class="java.lang.Long"/>
+	<field name="ventas_has_productos_folio" class="java.lang.String"/>
+	<field name="ventas_has_productos_fecha" class="java.sql.Date"/>
+	<field name="ventas_has_productos_nombre" class="java.lang.String"/>
+	<field name="ventas_has_productos_precio" class="java.lang.Float"/>
+	<field name="ventas_has_productos_total_pv" class="java.lang.Float"/>
+	<field name="ventas_has_productos_cantidad" class="java.lang.Integer"/>
+	<field name="ventas_has_productos_cliente" class="java.lang.String"/>
+	<field name="ventas_has_productos_id" class="java.lang.Integer"/>
+	<field name="ventas_id_venta" class="java.lang.Integer"/>
+	<field name="ventas_folio" class="java.lang.String"/>
+	<field name="ventas_cliente" class="java.lang.String"/>
+	<field name="ventas_importe" class="java.lang.Float"/>
+	<field name="ventas_total_pv" class="java.lang.Float"/>
+	<field name="ventas_fecha" class="java.sql.Date"/>
+	<field name="ventas_total" class="java.lang.Float"/>
+	<field name="clientes_id_cliente" class="java.lang.Long"/>
+	<field name="clientes_id" class="java.lang.Long"/>
+	<field name="clientes_nombre" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="97" splitType="Stretch">
+			<image>
+				<reportElement uuid="feb79f05-f1ba-47ba-ac96-0b89066c86fe" x="375" y="0" width="180" height="79"/>
+				<imageExpression><![CDATA["C:\\Users\\JAIRO\\Desktop\\progama1.0\\logo_fondo.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="df5b6022-1e85-4807-8c65-7a12875661b4" x="55" y="0" width="148" height="27" forecolor="#990099"/>
+				<textElement>
+					<font size="20"/>
+				</textElement>
+				<text><![CDATA[Venta Productos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a9c97b1e-2060-404c-b0d8-6aa78eff7626" x="15" y="47" width="40" height="20"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Fecha :]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="c596ee77-38e1-4f02-a8b6-7220ab543962" x="55" y="47" width="100" height="20"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="09630719-852a-4b3f-8296-0335b6812bce" x="15" y="71" width="233" height="14"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Vive doTERRA - Vive Sanamente , Vive doTERRA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a3d4d7a7-1b84-4fe1-9cd7-506385db21bf" style="table" mode="Opaque" x="308" y="47" width="55" height="15" forecolor="#990099" backcolor="#E2E2E2"/>
+				<textElement textAlignment="Center">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Folio ]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="323baf00-5f21-4fc8-800c-d167da1aa422" style="table" x="308" y="62" width="55" height="17"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{ventas_has_productos_folio}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="46" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="3f7021d5-27f6-4dee-a1c6-58838e179ee9" style="table" mode="Opaque" x="55" y="5" width="126" height="15" forecolor="#990099" backcolor="#E2E2E2"/>
+				<textElement textAlignment="Center">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Nombre del Producto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="be5a60fd-d573-454d-ba06-bb62a8b7f757" style="table" mode="Opaque" x="181" y="5" width="85" height="15" forecolor="#990099" backcolor="#E2E2E2"/>
+				<textElement textAlignment="Center">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="dbd8c380-b177-4525-b171-fb1519b5f386" style="table" mode="Opaque" x="266" y="5" width="85" height="15" forecolor="#990099" backcolor="#E2E2E2"/>
+				<textElement textAlignment="Center">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Precio]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="84f4d066-26bc-4f6f-b188-67c52bcdd974" style="table" mode="Opaque" x="55" y="20" width="126" height="16"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{ventas_has_productos_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="07b5da8a-c900-46cf-8eaf-987124739566" style="table" x="181" y="20" width="85" height="16"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{ventas_has_productos_cantidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="7748e8af-3da8-4f03-9a20-eba550cb81e0" style="table" x="266" y="20" width="85" height="16"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{ventas_has_productos_precio}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="17" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="67" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="b1b73b70-e551-4cf8-b165-e6da82b5c751" style="table" mode="Opaque" x="379" y="20" width="55" height="15" forecolor="#990099" backcolor="#E2E2E2"/>
+				<textElement textAlignment="Center">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Importe]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="a2755e15-8a2f-4a04-b48c-ed9fb1e3b2b1" style="table" x="379" y="36" width="55" height="18"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{ventas_importe}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="52e155a1-10a0-4949-87b7-b3b02af60132" style="table" mode="Opaque" x="434" y="20" width="55" height="15" forecolor="#990099" backcolor="#E2E2E2"/>
+				<textElement textAlignment="Center">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Total PV]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="030ab496-ef39-4a79-a051-1db61d10db47" style="table" x="434" y="36" width="55" height="18"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{ventas_total_pv}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="e1cbd95b-edda-4d68-a22b-b072da2283e0" style="table" mode="Opaque" x="489" y="20" width="55" height="15" forecolor="#990099" backcolor="#E2E2E2"/>
+				<textElement textAlignment="Center">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="f26e5126-fe28-4afc-8b4e-f05b1e569d60" style="table" x="489" y="36" width="55" height="18"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{ventas_total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="e1266cfc-a9d5-4284-9bbe-81b984e57b34" style="table" x="434" y="5" width="55" height="15"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{clientes_nombre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="90373323-a6bd-42fb-8e13-8b7284b1a565" style="table" mode="Opaque" x="379" y="5" width="55" height="15" forecolor="#990099" backcolor="#E2E2E2"/>
+				<textElement textAlignment="Center">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="72" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="83fa2cd7-fc35-4539-836e-03ce43001121" x="10" y="36" width="126" height="14"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Telefono : (493)-933 1267]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d100d583-a655-480b-968f-612ad5429187" x="10" y="50" width="176" height="15"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Contacto : ejemplo@dicomfresnillo.com]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c17588a7-c839-44e3-ae0f-494c1decc06f" x="10" y="10" width="174" height="26"/>
+				<textElement>
+					<font size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Dirección : Calle Encino No. 7, Col. Centro.
+C.P 99000. Fresnillo, Zacatecas]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>
