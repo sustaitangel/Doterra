@@ -8,6 +8,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLayeredPane;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.CellEditorListener;
+import javax.swing.event.ChangeEvent;
 import javax.swing.table.DefaultTableModel;
 
 import java.awt.Color;
@@ -60,6 +62,7 @@ public class VentaProductos extends JFrame {
 	private ButtonGroup rb = new ButtonGroup();
 	public static JTextField txtCliente = new JTextField();
 	public int tipox;
+	public int memoria;  
 
 	/**
 	 * Launch the application.
@@ -171,9 +174,9 @@ public class VentaProductos extends JFrame {
 		layeredPane.add(lblTotal);
 		
 		txtTotal = new JTextField();
+		txtTotal.setEnabled(false);
 		txtTotal.setFont(new Font("Tahoma", Font.BOLD, 11));
 		txtTotal.setForeground(Color.RED);
-		txtTotal.setEditable(false);
 		txtTotal.setBounds(424, 78, 86, 20);
 		layeredPane.add(txtTotal);
 		txtTotal.setColumns(10);
@@ -230,12 +233,49 @@ public class VentaProductos extends JFrame {
 		table = new JTable(){
 			public boolean isCellEditable(int rowIndex, int columnIndex) { 
 				if (columnIndex==5) return true; 
-				if (columnIndex==3) return false;
+				if (columnIndex==4) return true;
 				if (columnIndex==2) return true;
 				else 
 				return false; 
 				} 
 		};
+		table.getDefaultEditor(String.class).addCellEditorListener(
+                new CellEditorListener() {                  
+           
+					@Override
+					public void editingStopped(ChangeEvent e) {
+						// TODO Auto-generated method stub
+						 
+	                        BuscarArticulo n= new BuscarArticulo();
+	    					int selected;
+	    					selected=table.getSelectedRow(); 
+	    					int cantidad;
+	    					cantidad=Integer.parseInt(table.getValueAt(selected, 4).toString());
+	    					int j=table.getSelectedRow();
+	    					String codigo=table.getValueAt(j, 0).toString();
+	    					n.calcular(table,cantidad,j,memoria,codigo);
+	    					suma();
+					}
+
+					@Override
+					public void editingCanceled(ChangeEvent e) {
+						// TODO Auto-generated method stub
+						System.out.println("editingCanceled");
+                        JOptionPane.showMessageDialog(null," no se cambio nada");
+					}
+                });
+
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int selected;
+				selected=table.getSelectedRow(); 
+				int cantidad;
+				cantidad=Integer.parseInt(table.getValueAt(selected, 4).toString());
+				memoria=cantidad;
+			}
+		});
+		
 		
 		scrollPane.setColumnHeaderView(table);
 		scrollPane.setViewportView(table);
@@ -303,6 +343,7 @@ public class VentaProductos extends JFrame {
 				tipox=2;
 			}
 		});
+		
 		rdbDistribuidor.setBounds(162, 139, 142, 23);
 		layeredPane.add(rdbDistribuidor);
 		
@@ -335,6 +376,7 @@ public class VentaProductos extends JFrame {
 		lblDt.setText(folio);
 	}
 	public void suma(){
+		JOptionPane.showMessageDialog(null, "hola mundo");
 		int j=table.getRowCount()-1;
 		if(j>=0){
 			float n2=0;
@@ -345,14 +387,19 @@ public class VentaProductos extends JFrame {
 				float n= Float.parseFloat(table.getValueAt(i, 2).toString());
 				float cantidad=Integer.parseInt(table.getValueAt(i, 4).toString());
 				float n1=n*cantidad;
+				JOptionPane.showMessageDialog(null,cantidad);
+				JOptionPane.showMessageDialog(null,n1);
 				float nx=n= Float.parseFloat(table.getValueAt(i, 2).toString());
 				n2=n2+n1;
 				DecimalFormat formateador = new DecimalFormat(".##");
 				DecimalFormat formateador1 = new DecimalFormat(".##");
+				
 				formateador.format(n2);
 				
-				n2x=n2x+nx;
+				n2x=n2x+n2;
 				txtTotal.setText(String.valueOf(formateador1.format(n2x)));			
+				JOptionPane.showMessageDialog(null,n2x);
+				
 				
 				float m= Float.parseFloat(table.getValueAt(i, 3).toString());
 				float can=Integer.parseInt(table.getValueAt(i, 4).toString());
@@ -363,7 +410,7 @@ public class VentaProductos extends JFrame {
 				DecimalFormat forma1 = new DecimalFormat(".##");
 				forma.format(m2);
 				
-				m2x=m2x+mx;
+				m2x=m2x+m2;
 				txtTotalpv.setText(String.valueOf(forma1.format(m2x)));
 			}		
 		}else{

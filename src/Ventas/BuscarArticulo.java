@@ -73,7 +73,7 @@ public class BuscarArticulo {
 		float precioiva;
 		float preciopublico;
 		int cantidad;
-		int cantidadDb;
+		int cantidadDb ;
 		int nuevaCantidad;
 		Conectar cx=new Conectar();
 		Connection cn= cx.conexion(null);	
@@ -169,7 +169,7 @@ public class BuscarArticulo {
 					nuevaCantidad=cantidadDb+memoria-cantidad;
 					sql="UPDATE productos SET cantidad ='"+nuevaCantidad+"'WHERE clave='"+codigo+"'";
 					comando.execute(sql);
-					preciopublico=(precioiva*cantidad);
+					//preciopublico=(precioiva*cantidad);
 					DecimalFormat formateador = new DecimalFormat(".##");
 					//tabla.setValueAt(formateador.format(preciopublico), seleccion, 4);
 				}
