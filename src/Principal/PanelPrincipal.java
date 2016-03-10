@@ -2,6 +2,7 @@ package Principal;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -65,6 +66,7 @@ public class PanelPrincipal extends JFrame {
 	 * @throws SQLException 
 	 */
 	public PanelPrincipal() throws SQLException {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(InSesion.class.getResource("/Imagenes/logoin.png")));
 		setResizable(false);
 		setTitle("-- Vive doTerra - Vive doTERRA - Vive Sanamente , Vive doTERRA --");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

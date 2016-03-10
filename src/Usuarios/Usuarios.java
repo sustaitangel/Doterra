@@ -2,6 +2,7 @@ package Usuarios;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -22,6 +23,7 @@ import javax.swing.JButton;
 
 import Conexion.Conectar;
 import Imagenes.Img;
+import Login.InSesion;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -59,6 +61,7 @@ public class Usuarios extends JFrame {
 	 * Create the frame.
 	 */
 	public Usuarios() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(InSesion.class.getResource("/Imagenes/logoin.png")));
 		setTitle("--doTerra-- Usuarios");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 336);

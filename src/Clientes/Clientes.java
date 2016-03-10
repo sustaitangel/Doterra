@@ -2,6 +2,7 @@ package Clientes;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -22,6 +23,7 @@ import javax.swing.JButton;
 
 import Conexion.Conectar;
 import Imagenes.Img;
+import Login.InSesion;
 import Productos.AgregarProducto;
 import Ventas.VentaProductos;
 
@@ -120,6 +122,7 @@ public class Clientes extends JFrame {
 		}
 	}
 	public Clientes() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(InSesion.class.getResource("/Imagenes/logoin.png")));
 		setTitle("--doTerra-- Alta Clientes--");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 563, 432);
@@ -209,7 +212,7 @@ public class Clientes extends JFrame {
 				int selected;
 				selected=tableClientes_1.getSelectedRow(); 
 				String Idclient;
-				Idclient=tableClientes_1.getValueAt(selected, 0).toString();
+				Idclient=tableClientes_1.getValueAt(selected, 1).toString();
 				IdCliente=Idclient;
 				VentaProductos.txtCliente.setText(IdCliente);
 				Clientes.this.dispose();

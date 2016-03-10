@@ -2,6 +2,7 @@ package Productos;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -23,6 +24,7 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 
 import Imagenes.Img;
+import Login.InSesion;
 
 import javax.swing.JTabbedPane;
 
@@ -138,6 +140,7 @@ public class AltaProductos extends JFrame {
 	}
 	public AltaProductos() {
 		setResizable(false);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(InSesion.class.getResource("/Imagenes/logoin.png")));
 		setTitle("--doTerra-- Alta Productos--");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 733, 477);

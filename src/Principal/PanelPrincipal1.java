@@ -2,6 +2,7 @@ package Principal;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -51,6 +52,7 @@ public class PanelPrincipal1 extends JFrame {
 	 * Create the frame.
 	 */
 	public PanelPrincipal1() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(InSesion.class.getResource("/Imagenes/logoin.png")));
 		setTitle("-- Vive doTerra - Vive doTERRA - Vive Sanamente , Vive doTERRA --");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 625, 411);

@@ -3,6 +3,7 @@ package Inventario;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.HeadlessException;
+import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -32,6 +33,7 @@ import javax.swing.JButton;
 
 import Conexion.Conectar;
 import Imagenes.Img;
+import Login.InSesion;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JFileChooser;
@@ -105,7 +107,7 @@ public class Inventario extends JFrame {
 				String precioDistribuidor = "$ " + String.format("%.2f", rs.getFloat("precio_distribuidor"));
 				String precioGota = "$ " + String.format("%.2f", rs.getFloat("precio_gota"));
 				String precioCliente = "$ " + String.format("%.2f", rs.getFloat("precio_cliente"));
-				model.addRow(new Object[] {rs.getString("id_producto"),rs.getString("clave"),rs.getString("nombre"),precioDistribuidor,precioGota,precioCliente,rs.getInt("cantidad")});
+				model.addRow(new Object[] {rs.getString("id_producto"),rs.getString("clave"),rs.getString("nombre"),precioCliente,precioDistribuidor,precioGota,rs.getInt("cantidad")});
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -138,7 +140,7 @@ public class Inventario extends JFrame {
 				String precioDistribuidor = "$ " + String.format("%.2f", rs.getFloat("precio_distribuidor"));
 				String precioGota = "$ " + String.format("%.2f", rs.getFloat("precio_gota"));
 				String precioCliente = "$ " + String.format("%.2f", rs.getFloat("precio_cliente"));
-				model.addRow(new Object[] {rs.getString("id_producto"),rs.getString("clave"),rs.getString("nombre"),precioDistribuidor,precioGota,precioCliente,rs.getInt("cantidad")});
+				model.addRow(new Object[] {rs.getString("id_producto"),rs.getString("clave"),rs.getString("nombre"),precioCliente,precioDistribuidor,precioGota,rs.getInt("cantidad")});
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -146,6 +148,7 @@ public class Inventario extends JFrame {
 		}
 	}
 	public Inventario() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(InSesion.class.getResource("/Imagenes/logoin.png")));
 		setTitle("--doTerra-- Inventario de productos--");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 651, 422);

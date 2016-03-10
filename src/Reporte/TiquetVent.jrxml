@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TiquetVent" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f2f98cb0-5a3a-4e3f-9d9a-74cd6f722c7f">
 	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="208"/>
-	<property name="ireport.y" value="139"/>
+	<property name="ireport.x" value="104"/>
+	<property name="ireport.y" value="0"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -48,7 +48,10 @@
 FROM
      `ventas_has_productos` ventas_has_productos,
      `ventas` ventas,
-     `clientes` clientes]]>
+     `clientes` clientes
+
+where
+ clientes.`id` =  clientes.`nombre`]]>
 		</queryString>
 		<field name="ventas_has_productos_clave" class="java.lang.Long"/>
 		<field name="ventas_has_productos_folio" class="java.lang.String"/>
@@ -122,7 +125,7 @@ where
 		<band height="100" splitType="Stretch">
 			<image>
 				<reportElement uuid="feb79f05-f1ba-47ba-ac96-0b89066c86fe" x="375" y="0" width="180" height="79"/>
-				<imageExpression><![CDATA["C:\\Users\\JAIRO\\Desktop\\progama1.0\\logo_fondo.png"]]></imageExpression>
+				<imageExpression><![CDATA["C:\\progama1.0\\logo_fondo.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement uuid="df5b6022-1e85-4807-8c65-7a12875661b4" x="55" y="0" width="148" height="27" forecolor="#990099"/>
@@ -253,10 +256,10 @@ where
 				<textElement textAlignment="Center">
 					<font isBold="false"/>
 				</textElement>
-				<text><![CDATA[Id Cliente]]></text>
+				<text><![CDATA[Cliente]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="d6578843-ba70-44b7-b9b6-41823fc35ecb" style="table" x="434" y="5" width="93" height="15"/>
+				<reportElement uuid="d6578843-ba70-44b7-b9b6-41823fc35ecb" style="table" x="434" y="5" width="110" height="15"/>
 				<textElement textAlignment="Center">
 					<font isStrikeThrough="false"/>
 				</textElement>

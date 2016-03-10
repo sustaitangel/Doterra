@@ -2,6 +2,7 @@ package Ventas;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -26,6 +27,7 @@ import javax.swing.JButton;
 
 import Clientes.Clientes;
 import Imagenes.Img;
+import Login.InSesion;
 import Principal.RelojFecha;
 import Reporte.GeneradordeReportes;
 import Reporte.tickets;
@@ -84,6 +86,7 @@ public class VentaProductos extends JFrame {
 	 * Create the frame.
 	 */
 	public VentaProductos() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(InSesion.class.getResource("/Imagenes/logoin.png")));
 		setTitle("--doTerra--Venta de productos--");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 617, 528);
@@ -159,6 +162,7 @@ public class VentaProductos extends JFrame {
 		layeredPane.add(lblTotalPv);
 		
 		txtTotalpv = new JTextField();
+		txtTotalpv.setText("0.0");
 		txtTotalpv.setFont(new Font("Tahoma", Font.BOLD, 11));
 		txtTotalpv.setForeground(Color.RED);
 		txtTotalpv.setEditable(false);
@@ -174,7 +178,8 @@ public class VentaProductos extends JFrame {
 		layeredPane.add(lblTotal);
 		
 		txtTotal = new JTextField();
-		txtTotal.setEnabled(false);
+		txtTotal.setText("0.0\r\n");
+		txtTotal.setEditable(false);
 		txtTotal.setFont(new Font("Tahoma", Font.BOLD, 11));
 		txtTotal.setForeground(Color.RED);
 		txtTotal.setBounds(424, 78, 86, 20);
@@ -376,7 +381,6 @@ public class VentaProductos extends JFrame {
 		lblDt.setText(folio);
 	}
 	public void suma(){
-		JOptionPane.showMessageDialog(null, "hola mundo");
 		int j=table.getRowCount()-1;
 		if(j>=0){
 			float n2=0;
@@ -387,8 +391,6 @@ public class VentaProductos extends JFrame {
 				float n= Float.parseFloat(table.getValueAt(i, 2).toString());
 				float cantidad=Integer.parseInt(table.getValueAt(i, 4).toString());
 				float n1=n*cantidad;
-				JOptionPane.showMessageDialog(null,cantidad);
-				JOptionPane.showMessageDialog(null,n1);
 				float nx=n= Float.parseFloat(table.getValueAt(i, 2).toString());
 				n2=n2+n1;
 				DecimalFormat formateador = new DecimalFormat(".##");
@@ -396,9 +398,8 @@ public class VentaProductos extends JFrame {
 				
 				formateador.format(n2);
 				
-				n2x=n2x+n2;
-				txtTotal.setText(String.valueOf(formateador1.format(n2x)));			
-				JOptionPane.showMessageDialog(null,n2x);
+				n2x=n2x+n1;
+				txtTotal.setText(String.valueOf(formateador1.format(n2x)));		
 				
 				
 				float m= Float.parseFloat(table.getValueAt(i, 3).toString());
@@ -410,7 +411,7 @@ public class VentaProductos extends JFrame {
 				DecimalFormat forma1 = new DecimalFormat(".##");
 				forma.format(m2);
 				
-				m2x=m2x+m2;
+				m2x=m2x+m1;
 				txtTotalpv.setText(String.valueOf(forma1.format(m2x)));
 			}		
 		}else{

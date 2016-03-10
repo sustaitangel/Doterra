@@ -2,6 +2,7 @@ package Login;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -60,6 +61,7 @@ public class InSesion extends JFrame {
 	 * Create the frame.
 	 */
 	public InSesion() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(InSesion.class.getResource("/Imagenes/logoin.png")));
 		setResizable(false);
 		setTitle("-- doTerra-- Iniciar Sesion");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
